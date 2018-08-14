@@ -4,7 +4,6 @@ set -e # exit after any error
 set -x # echo each command line
 
 # we expect to find the following environment variables set:
-# BUCKET_NAME
 # X_TEST_S3_URL
 # X_TRAIN_S3_URL
 # SCORE_OUTPUT_S3_URL
