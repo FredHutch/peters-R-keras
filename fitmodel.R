@@ -30,7 +30,7 @@ model %>%
 
  
 
-parallel_model <- multi_gpu_model(model, gpus=4)
+parallel_model <- multi_gpu_model(model, gpus=8)
 
 parallel_model %>%   compile(
 
