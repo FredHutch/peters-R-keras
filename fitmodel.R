@@ -1,3 +1,4 @@
+
 library(keras)
 
 library(data.table)
@@ -45,7 +46,6 @@ parallel_model %>%   compile(
 parallel_model %>% fit(x_train, y_train, epochs = 20, batch_size = 128)
 
  
-
 x_test=fread('x_test.csv')
 
 x_test=data.frame(x_test)
@@ -56,7 +56,7 @@ x_test=data.matrix(x_test[,-1])
 
  
 
-score = parallel_model %>% evaluate(x_test, y_test, batch_size=128)
-
+#score = parallel_model %>% evaluate(x_test, y_test, batch_size=128)
+score = parallel_model %>% predict_proba(x_test, batch_size=128)
 fwrite(score,'score.csv')
 
