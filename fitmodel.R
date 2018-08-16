@@ -1,4 +1,4 @@
-ibrary(keras)
+library(keras)
 
 library(data.table)
 
