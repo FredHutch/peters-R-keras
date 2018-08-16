@@ -56,6 +56,6 @@ x_test=data.matrix(x_test[,-1])
  
 
 #score = parallel_model %>% evaluate(x_test, y_test, batch_size=128)
-score = parallel_model %>% predict(x_test, batch_size=128)
+score = parallel_model %>% predict_proba(x_test, batch_size=128)
 fwrite(data.frame(score),'score.csv')
 
