@@ -15,7 +15,7 @@ cd peters-R-keras
 aws s3 cp $X_TRAIN_S3_URL ./x_train.csv
 aws s3 cp $X_TEST_S3_URL ./x_test.csv
 
-R -f fitmodel.R
+time R -f fitmodel.R
 
 aws s3 cp score.csv $SCORE_OUTPUT_S3_URL
 
