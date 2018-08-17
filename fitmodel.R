@@ -53,7 +53,7 @@ parallel_model %>%   compile(
 #for(i in c(20,40,60,80,100,120,140,160)){
 parallel_model %>% fit(x_train, y_train, epochs = 20, batch_size = 128)
 #score1 = c(score1,parallel_model %>% evaluate(x_train, y_train, batch_size=128))
-score = c(score,parallel_model %>% evaluate(x_test, y_test, batch_size=128))
+score = parallel_model %>% evaluate(x_test, y_test, batch_size=128)
 # }
 #ss=cbind(score1,score)
 #score = parallel_model %>% predict(x_test, batch_size=128)
