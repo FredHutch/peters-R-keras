@@ -44,11 +44,11 @@ model %>%
 
   layer_dense(units = 1024, activation = 'relu', input_shape = c(99983)) %>%
 
+  layer_dropout(rate = 0.5) %>%
+
+  layer_dense(units = 400, activation = 'relu') %>%
+
   layer_dropout(rate = 0.3) %>%
-
-  layer_dense(units = 664, activation = 'relu') %>%
-
-  layer_dropout(rate = 0.1) %>%
 
   layer_dense(units = 1, activation = 'sigmoid')
 
