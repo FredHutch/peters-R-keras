@@ -23,7 +23,7 @@ model <- keras_model_sequential()
 
 model %>%
 
-  layer_dense(units = 64, activation = 'relu', input_shape = c(10003)) %>%
+  layer_dense(units = 32, activation = 'relu', input_shape = c(10003)) %>%
 
   layer_dropout(rate = 0.5) %>%
 
@@ -47,15 +47,15 @@ parallel_model %>%   compile(
 
   )
 
-score1=c()
-score=c()
+#score1=c()
+#score=c()
 
-for(i in c(20,40,60,80,100,120,140,160)){
-parallel_model %>% fit(x_train, y_train, epochs = i, batch_size = 128)
-score1 = c(score1,parallel_model %>% evaluate(x_train, y_train, batch_size=128))
+#for(i in c(20,40,60,80,100,120,140,160)){
+parallel_model %>% fit(x_train, y_train, epochs = 20, batch_size = 128)
+#score1 = c(score1,parallel_model %>% evaluate(x_train, y_train, batch_size=128))
 score = c(score,parallel_model %>% evaluate(x_test, y_test, batch_size=128))
- }
-ss=cbind(score1,score)
+# }
+#ss=cbind(score1,score)
 #score = parallel_model %>% predict(x_test, batch_size=128)
-fwrite(data.frame(ss),'score.csv')
+fwrite(data.frame(score),'score.csv')
 
