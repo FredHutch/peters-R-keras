@@ -18,6 +18,7 @@ x_test=data.frame(x_test)
 
 y_test=x_test[,1]
 
+
 x_test=data.matrix(x_test[,-1])
 x_test=x_test[,1:30000]
 
@@ -74,7 +75,8 @@ parallel_model %>%   compile(
 #for(i in c(20,40,60,80,100,120,140,160)){
 parallel_model %>% fit(x_train, y_train, epochs = 20, batch_size = 128)
 #score1 = c(score1,parallel_model %>% evaluate(x_train, y_train, batch_size=128))
-score = parallel_model %>% evaluate(x_test, y_test, batch_size=128)
+#score = parallel_model %>% evaluate(x_test, y_test, batch_size=128)
+score = parallel_model %>% predict(x_test, batch_size=128)
 #score1 = parallel_model %>% evaluate(test_uk, y_uk, batch_size=128)
 #score2 = parallel_model %>% evaluate(test_plco, y_plco, batch_size=128)
 # }
