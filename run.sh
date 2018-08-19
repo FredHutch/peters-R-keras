@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 set -e # exit after any error
@@ -15,8 +14,8 @@ cd peters-R-keras
 
 aws s3 cp $X_TRAIN_S3_URL ./x_train.csv
 aws s3 cp $X_TEST_S3_URL ./x_test.csv
-aws s3 cp $X_TEST_uk_S3_URL ./test_uk.csv
-aws s3 cp $X_TEST_plco_S3_URL ./test_plco.csv
+#aws s3 cp $X_TEST_uk_S3_URL ./test_uk.csv
+#aws s3 cp $X_TEST_plco_S3_URL ./test_plco.csv
 
 time R -f fitmodel.R
 
