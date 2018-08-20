@@ -1,3 +1,4 @@
+library(lime)
 
 library(keras)
 
@@ -78,10 +79,11 @@ parallel_model %>% fit(x_train, y_train, epochs = 20, batch_size = 128)
 #score1 = c(score1,parallel_model %>% evaluate(x_train, y_train, batch_size=128))
 #score = parallel_model %>% evaluate(x_test, y_test, batch_size=128)
 #score = parallel_model %>% predict(x_test, batch_size=128)
-score1 = parallel_model %>% predict(test_uk, y_uk, batch_size=128)
+#score1 = parallel_model %>% predict(test_uk, y_uk, batch_size=128)
 #score2 = parallel_model %>% evaluate(test_plco, y_plco, batch_size=128)
 # }
 #ss=cbind(score,score1,score2)
 #score = parallel_model %>% predict(x_test, batch_size=128)
+score1=predict_model(x = parallel_model, newdata = x_test_tbl, type = 'prob') 
 fwrite(data.frame(score1),'score.csv')
 
