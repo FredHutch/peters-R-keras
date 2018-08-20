@@ -28,7 +28,6 @@ x_test=x_test[,1:30000]
 #test_uk=data.frame(test_uk)
 
 #y_uk=test_uk[,1]
-
 #test_uk=data.matrix(test_uk[,-1])
 ###########test3
 
@@ -73,7 +72,7 @@ parallel_model %>%   compile(
 
 
 #for(i in c(20,40,60,80,100,120,140,160)){
-parallel_model %>% fit(x_train, y_train, epochs = 20, batch_size = 128, class_weight={"1":1, "0":30})
+parallel_model %>% fit(x_train, y_train, epochs = 20, batch_size = 128, class_weight={1:1, 0:30})
 #score1 = c(score1,parallel_model %>% evaluate(x_train, y_train, batch_size=128))
 #score = parallel_model %>% evaluate(x_test, y_test, batch_size=128)
 score = parallel_model %>% predict(x_test, batch_size=128)
