@@ -11,7 +11,7 @@ x_train=data.frame(x_train)
 y_train=x_train[,1]
 
 x_train=data.matrix(x_train[,-1])
-x_train=x_train[,1:30000]
+x_train=x_train[,1:10000]
 
 ######test1
 #x_test=fread('x_test.csv')
@@ -31,7 +31,7 @@ test_uk=data.frame(test_uk)
 
 y_uk=test_uk[,1]
 test_uk=data.matrix(test_uk[,-1])
-test_uk=test_uk[,1:30000]
+test_uk=test_uk[,1:10000]
 ###########test3
 
 #test_plco=fread('test_plco.csv')
@@ -47,13 +47,17 @@ model <- keras_model_sequential()
 
 model %>%
 
-  layer_dense(units = 1024, activation = 'relu', input_shape = c(30000)) %>%
+  layer_dense(units = 1024, activation = 'relu', input_shape = c(10000)) %>%
 
   layer_dropout(rate = 0.5) %>%
 
-  layer_dense(units = 400, activation = 'relu') %>%
+  layer_dense(units = 1024, activation = 'relu') %>%
 
-  layer_dropout(rate = 0.3) %>%
+  layer_dropout(rate = 0.5) %>%
+
+  layer_dense(units = 1024, activation = 'relu') %>%
+
+  layer_dropout(rate = 0.5) %>%
 
   layer_dense(units = 1, activation = 'sigmoid')
 
@@ -79,11 +83,11 @@ parallel_model %>% fit(x_train, y_train, epochs = 20, batch_size = 128)
 #score1 = c(score1,parallel_model %>% evaluate(x_train, y_train, batch_size=128))
 #score = parallel_model %>% evaluate(x_test, y_test, batch_size=128)
 #score = parallel_model %>% predict(x_test, batch_size=128)
-#score1 = parallel_model %>% predict(test_uk, y_uk, batch_size=128)
+score1 = parallel_model %>% predict(test_uk, y_uk, batch_size=128)
 #score2 = parallel_model %>% evaluate(test_plco, y_plco, batch_size=128)
 # }
 #ss=cbind(score,score1,score2)
 #score = parallel_model %>% predict(x_test, batch_size=128)
-score1=predict_model(x = parallel_model, newdata = x_test_tbl, type = 'prob') 
+
 fwrite(data.frame(score1),'score.csv')
 
