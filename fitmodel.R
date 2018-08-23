@@ -45,11 +45,11 @@ model <- keras_model_sequential()
 
 model %>%
 
-  layer_dense(units = 1024, activation = 'relu', input_shape = c(30000)) %>%
+  layer_dense(units = 3000, activation = 'relu', input_shape = c(30000)) %>%
 
   layer_dropout(rate = 0.5) %>%
 
-  layer_dense(units = 1024, activation = 'relu') %>%
+  layer_dense(units = 2000, activation = 'relu') %>%
 
   layer_dropout(rate = 0.5) %>%
 
