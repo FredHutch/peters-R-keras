@@ -9,7 +9,7 @@ x_train=data.frame(x_train)
 y_train=x_train[,1]
 
 x_train=data.matrix(x_train[,-1])
-x_train=x_train[,1:10000]
+x_train=x_train[,1:30000]
 
 ######test1
 #x_test=fread('x_test.csv')
@@ -29,7 +29,7 @@ test_uk=data.frame(test_uk)
 
 y_uk=test_uk[,1]
 test_uk=data.matrix(test_uk[,-1])
-test_uk=test_uk[,1:10000]
+test_uk=test_uk[,1:30000]
 ###########test3
 
 #test_plco=fread('test_plco.csv')
@@ -45,7 +45,7 @@ model <- keras_model_sequential()
 
 model %>%
 
-  layer_dense(units = 1024, activation = 'relu', input_shape = c(10000)) %>%
+  layer_dense(units = 1024, activation = 'relu', input_shape = c(30000)) %>%
 
   layer_dropout(rate = 0.5) %>%
 
