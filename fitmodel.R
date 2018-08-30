@@ -11,6 +11,11 @@ y_train=x_train[,1]
 x_train=data.matrix(x_train[,-1])
 x_train=x_train[,1:30000]
 
+get.gpu.count <- function() {
+  out <- system2("nvidia-smi", "-L", stdout=TRUE)
+  length(out)
+}
+
 ######test1
 #x_test=fread('x_test.csv')
 
@@ -65,7 +70,7 @@ model %>%
 
  
 
-parallel_model <- multi_gpu_model(model, gpus=8)
+parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 
 parallel_model %>%   compile(
 
