@@ -97,5 +97,5 @@ score = parallel_model %>% predict(test_uk, batch_size=128)
 #ss=cbind(score,score1,score2)
 #score = parallel_model %>% predict(x_test, batch_size=128)
 
-fwrite(data.frame(score1),'score.csv')
+fwrite(data.frame(score),'score.csv')
 
