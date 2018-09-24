@@ -33,6 +33,7 @@ fi
 
 
 aws s3 cp score.csv $SCORE_OUTPUT_S3_URL
+aws s3 cp model_reg.hdf5 $MODEL_OUTPUT_S3_URL
 
 
 
