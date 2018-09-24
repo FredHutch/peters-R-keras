@@ -9,7 +9,7 @@
                 "value": "s3://fh-pi-peters-u/myfolder-20180816/x_train.csv"
             },
             {
-                "name": "X_TEST_S3_URL",
+                "name": "X_TEST_uk_S3_URL",
                 "value": "s3://fh-pi-peters-u/myfolder-20180816/x_test.csv"
             },
             {

@@ -54,24 +54,37 @@ Then edit `job.json` to be the way you want it.
 If you want to use `python`, set it to
 `peters-python-keras:1`.
 
+If the job seems to be stuck in `RUNNABLE` for a long time, it could mean that all the 8-GPU instances in our region are in use.
 
- 
+To work around this, try [terminating](https://docs.aws.amazon.com/cli/latest/reference/batch/terminate-job.html)
+your job, then edit `job.json` to change the value of
+`jobQueue` to `gpu-8xlarge-only`. This will run on 
+a machine that has 4 GPUs instead of 8.
+
+ ```
 aws batch submit-job --cli-input-json file://job.json
 {
 "jobName": "test-job-20180816",
 "jobId": "db3b7e51-7ad6-4aee-8561-805ffb1c851b"
 }
+```
+
+Be sure to make a note of the Job ID. You need it for monitoring and termination (if necessary).
 
 
-Monitoring a running job
+
+
+
+### Monitoring a running job
 
 
 
 From the command line:
 
-
+```
 aws batch describe-jobs --jobs db3b7e51-7ad6-4aee-8561-805ffb1c851b
- 
+``` 
+
 Or the web UI:
  
 https://batch-dashboard.fhcrc.org/#jobs_header
