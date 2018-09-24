@@ -69,9 +69,9 @@ model <- keras_model_sequential()
 #  layer_dense(units = 1, activation = 'sigmoid')
 
 model %>%
-  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.01), activation = 'relu', input_shape = c(15000)) %>%
-  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.01), activation = 'relu') %>%
-  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.01), activation = 'relu') %>%
+  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'relu', input_shape = c(15000)) %>%
+  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
+  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
   layer_dense(units = 1, activation = 'sigmoid') 
 
 parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
@@ -87,17 +87,38 @@ parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 #  )
 parallel_model  %>% compile(
   loss = 'binary_crossentropy',
-  optimizer = optimizer_rmsprop(lr=0.01),
+  optimizer = optimizer_rmsprop(lr=0.001),
   metrics = c('accuracy')
 )
 #score1=c()
-
+filepath <- "model_reg.hdf5" # set up your own filepath
+checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc", verbose = 1,
+                                        save_best_only = TRUE,
+                                        save_weights_only = FALSE, mode = "auto")
+reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
+                                           patience = 20, verbose = 1, mode = "auto",
+                                           min_lr = 0.00001)
+x_train=scale(x_train[,1:15000])
+test_uk=scale(test_uk[,1:15000])
+history.reg <- parallel_model %>% fit(
+  x_train, y_train,
+  epochs = 100, batch_size = nrow(x_train),
+  validation_data = list(test_uk, y_uk), shuffle = TRUE,
+  callbacks = list(checkpoint, reduce_lr)
+)
+# plot training loss and accuracy
+pdf('history.reg.pdf')
+plot(history.reg)
+dev.off()
+max(history.reg$metrics$val_acc)
+# load and evaluate best model
+#rm(model.reg)
 
 #for(i in c(20,40,60,80,100,120,140,160)){
-parallel_model %>% fit(scale(x_train[,1:15000]), y_train, epochs = 20, batch_size = 258)
+#parallel_model %>% fit(scale(x_train[,1:15000]), y_train, epochs = 20, batch_size = 258)
 #score1 = c(score1,parallel_model %>% evaluate(x_train, y_train, batch_size=128))
 #score = parallel_model %>% evaluate(x_test, y_test, batch_size=128)
-score = parallel_model %>% predict(scale(test_uk[,1:15000]), batch_size=128)
+score = parallel_model %>% predict(scale(test_uk[,1:15000]), batch_size=nrow(test_uk))
 #score1 = parallel_model %>% predict_classes(test_uk, y_uk, batch_size=258)
 #score1 = predict_classes(parallel_model,test_uk, batch_size=258)
 #score2 = parallel_model %>% evaluate(test_plco, y_plco, batch_size=128)
