@@ -98,10 +98,12 @@ checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc"
 reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
                                            patience = 20, verbose = 1, mode = "auto",
                                            min_lr = 0.00001)
+x_train=x_train[,1:15000]
+test_uk=test_uk[,1:15000]
 history.reg <- parallel_model %>% fit(
-  X_train, Y_train,
-  epochs = 100, batch_size = nrow(X_train),
-  validation_data = list(X_val, Y_val), shuffle = TRUE,
+  x_train, y_train,
+  epochs = 100, batch_size = nrow(x_train),
+  validation_data = list(test_uk, y_uk), shuffle = TRUE,
   callbacks = list(checkpoint, reduce_lr)
 )
 # plot training loss and accuracy
