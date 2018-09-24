@@ -114,7 +114,7 @@ max(history.reg$metrics$val_acc)
 # load and evaluate best model
 rm(model.reg)
 model.reg <- keras:::keras$models$load_model(filepath)
-score=model.reg %>% evaluate(test_uk, y_uk)
+score=model.reg %>% predict(test_uk,batch_size=nrow(test_uk))
 
 #for(i in c(20,40,60,80,100,120,140,160)){
 #parallel_model %>% fit(scale(x_train[,1:15000]), y_train, epochs = 20, batch_size = 258)
