@@ -48,40 +48,48 @@ test_uk=scale(test_uk[,1:30000])
 
 model <- keras_model_sequential()
 
-model %>%
+#model %>%
 
-  layer_dense(units = 3000, activation = 'sigmoid', input_shape = c(15000)) %>%
+  #layer_dense(units = 3000, activation = 'sigmoid', input_shape = c(15000)) %>%
 
-  layer_dropout(rate = 0.5) %>%
+  #layer_dropout(rate = 0.5) %>%
 
-  layer_dense(units = 2000, activation = 'sigmoid') %>%
+  #layer_dense(units = 2000, activation = 'sigmoid') %>%
 
-  layer_dropout(rate = 0.5) %>%
+ # layer_dropout(rate = 0.5) %>%
 
-  layer_dense(units = 1000, activation = 'sigmoid') %>%
+ # layer_dense(units = 1000, activation = 'sigmoid') %>%
 
-  layer_dropout(rate = 0.5) %>%
+ # layer_dropout(rate = 0.5) %>%
 
-  layer_dense(units = 500, activation = 'sigmoid') %>%
+ # layer_dense(units = 500, activation = 'sigmoid') %>%
 
-  layer_dropout(rate = 0.5) %>%
+ # layer_dropout(rate = 0.5) %>%
   
-  layer_dense(units = 1, activation = 'sigmoid')
+#  layer_dense(units = 1, activation = 'sigmoid')
 
- 
+model %>%
+  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'relu', input_shape = c(15000)) %>%
+  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
+  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
+  layer_dense(units = 1, activation = 'sigmoid') 
 
 parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 
-parallel_model %>%   compile(
+#parallel_model %>%   compile(
 
-    loss = 'binary_crossentropy',
+  #  loss = 'binary_crossentropy',
 
-    optimizer = 'rmsprop',
+   # optimizer = 'rmsprop',
 
-    metrics = c('accuracy')
+   # metrics = c('accuracy')
 
-  )
-
+#  )
+parallel_model  %>% compile(
+  loss = 'binary_crossentropy',
+  optimizer = optimizer_rmsprop(lr=0.001),
+  metrics = c('accuracy')
+)
 #score1=c()
 
 
