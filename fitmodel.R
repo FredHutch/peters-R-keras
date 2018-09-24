@@ -112,13 +112,15 @@ plot(history.reg)
 dev.off()
 max(history.reg$metrics$val_acc)
 # load and evaluate best model
-#rm(model.reg)
+rm(model.reg)
+model.reg <- keras:::keras$models$load_model(filepath)
+score=model.reg %>% evaluate(test_uk, y_uk)
 
 #for(i in c(20,40,60,80,100,120,140,160)){
 #parallel_model %>% fit(scale(x_train[,1:15000]), y_train, epochs = 20, batch_size = 258)
 #score1 = c(score1,parallel_model %>% evaluate(x_train, y_train, batch_size=128))
 #score = parallel_model %>% evaluate(x_test, y_test, batch_size=128)
-score = parallel_model %>% predict(scale(test_uk[,1:15000]), batch_size=nrow(test_uk))
+#score = parallel_model %>% predict(scale(test_uk[,1:15000]), batch_size=nrow(test_uk))
 #score1 = parallel_model %>% predict_classes(test_uk, y_uk, batch_size=258)
 #score1 = predict_classes(parallel_model,test_uk, batch_size=258)
 #score2 = parallel_model %>% evaluate(test_plco, y_plco, batch_size=128)
