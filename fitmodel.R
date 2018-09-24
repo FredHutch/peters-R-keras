@@ -112,7 +112,7 @@ plot(history.reg)
 dev.off()
 max(history.reg$metrics$val_acc)
 # load and evaluate best model
-rm(model.reg)
+rm(parallel_model)
 model.reg <- keras:::keras$models$load_model(filepath)
 score=model.reg %>% predict(test_uk,batch_size=nrow(test_uk))
 
