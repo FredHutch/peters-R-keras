@@ -1,0 +1,21 @@
+{
+    "jobName": "test-job-20180816-1",
+    "jobQueue": "gpu-16xlarge-only",
+    "jobDefinition": "peters-R-keras:2",
+    "containerOverrides": {
+        "environment": [
+            {
+                "name": "X_TRAIN_S3_URL",
+                "value": "s3://fh-pi-peters-u/myfolder-20180816/x_train.csv"
+            },
+            {
+                "name": "X_TEST_S3_URL",
+                "value": "s3://fh-pi-peters-u/myfolder-20180816/x_test.csv"
+            },
+            {
+                "name": "SCORE_OUTPUT_S3_URL",
+                "value": "s3://fh-pi-peters-u/myfolder-20180816/score.csv"
+            }
+        ]
+    }
+}

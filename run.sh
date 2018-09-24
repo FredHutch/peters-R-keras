@@ -8,6 +8,11 @@ set -x # echo each command line
 # X_TEST_S3_URL
 # SCORE_OUTPUT_S3_URL
 
+# And in the job definition for the python version only,
+# we set USE_PYTHON to indicate that we will
+# use Python instead of R.
+
+
 git clone https://github.com/dtenenba/peters-R-keras.git
 
 cd peters-R-keras
@@ -17,7 +22,15 @@ aws s3 cp $X_TRAIN_S3_URL ./x_train.csv
 aws s3 cp $X_TEST_uk_S3_URL ./test_uk.csv
 #aws s3 cp $X_TEST_plco_S3_URL ./test_plco.csv
 
-time R -f fitmodel.R
+if [ -z ${USE_PYTHON+x} ];
+then
+    echo USE_PYTHON is not set, using R
+    time R -f fitmodel.R
+else
+    echo USE_PYTHON is set, using python
+    time python fitmodel.py
+fi
+
 
 aws s3 cp score.csv $SCORE_OUTPUT_S3_URL
 
