@@ -52,7 +52,7 @@ Then edit `job.json` to be the way you want it.
 **NOTE:** If you want to use `R`, set the value of 
 `jobDefinition` to `peters-R-keras:2`.
 If you want to use `python`, set it to
-`peters-python-keras:1`.
+`peters-python-keras:2`.
 
 If the job seems to be stuck in `RUNNABLE` for a long time, it could mean that all the 8-GPU instances in our region are in use.
 
