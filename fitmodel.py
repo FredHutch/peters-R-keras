@@ -21,7 +21,7 @@ y_test = x_test[:, 0]
 x_test = x_test[:, 1:17000]
 
 model = Sequential()
-model.add(Dense(64, input_dim=17000, activation="relu"))
+model.add(Dense(64, input_dim=16999, activation="relu"))
 model.add(Dropout(0.5))
 model.add(Dense(64, activation="relu"))
 model.add(Dropout(0.5))
