@@ -26,8 +26,8 @@ if [ -z ${USE_PYTHON+x} ];
 then
     echo USE_PYTHON is not set, using R
     time R -f fitmodel.R
-    #aws s3 cp history.reg.pdf $PDF_OUTPUT_S3_URL
-    #aws s3 cp model_reg.hdf5 $MODEL_OUTPUT_S3_URL
+    aws s3 cp history.reg.pdf $PDF_OUTPUT_S3_URL
+    aws s3 cp model_reg.hdf5 $MODEL_OUTPUT_S3_URL
 else
     echo USE_PYTHON is set, using python
     time python fitmodel.py
