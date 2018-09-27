@@ -73,7 +73,7 @@ x_train=scale(x_train[,1:30000])
 test_uk=scale(test_uk[,1:30000])
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
-epochs = 100, batch_size = nrow(x_train),
+epochs = 7, batch_size = nrow(x_train),
 validation_data = list(test_uk, y_uk), shuffle = TRUE,
 #callbacks = list(checkpoint, reduce_lr)
 )
