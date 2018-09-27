@@ -69,7 +69,7 @@ model <- keras_model_sequential()
 #  layer_dense(units = 1, activation = 'sigmoid')
 
 model %>%
-  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'relu', input_shape = c(15000)) %>%
+  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'relu', input_shape = c(30000)) %>%
   layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
   layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
   layer_dense(units = 1, activation = 'sigmoid') 
@@ -98,8 +98,8 @@ checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc"
 reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
                                            patience = 20, verbose = 1, mode = "auto",
                                            min_lr = 0.00001)
-x_train=scale(x_train[,1:15000])
-test_uk=scale(test_uk[,1:15000])
+x_train=scale(x_train[,1:30000])
+test_uk=scale(test_uk[,1:30000])
 history.reg <- parallel_model %>% fit(
   x_train, y_train,
   epochs = 100, batch_size = nrow(x_train),
