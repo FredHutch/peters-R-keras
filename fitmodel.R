@@ -71,11 +71,11 @@ filepath <- "model_reg.hdf5" # set up your own filepath
  #                                          min_lr = 0.00001)
 x_train=scale(x_train[,1:30000])
 test_uk=scale(test_uk[,1:30000])
-#history.reg <- parallel_model %>% fit(
-#  x_train, y_train,
-#  epochs = 100, batch_size = nrow(x_train),
-#  validation_data = list(test_uk, y_uk), shuffle = TRUE,
-#  callbacks = list(checkpoint, reduce_lr)
+history.reg <- parallel_model %>% fit(
+x_train, y_train,
+epochs = 100, batch_size = nrow(x_train),
+validation_data = list(test_uk, y_uk), shuffle = TRUE,
+#callbacks = list(checkpoint, reduce_lr)
 )
 # plot training loss and accuracy
 #pdf('history.reg.pdf')
@@ -84,8 +84,7 @@ test_uk=scale(test_uk[,1:30000])
 #max(history.reg$metrics$val_acc)
 # load and evaluate best model
 #rm(parallel_model)
-model.reg <- keras:::keras$models$load_model(filepath)
-score=model.reg %>% predict(test_uk,batch_size=nrow(test_uk))
-
+#model.reg <- keras:::keras$models$load_model(filepath)
+score=parallel_model %>% predict(test_uk,batch_size=nrow(test_uk))
 fwrite(data.frame(score,y_uk),'score.csv')
 
