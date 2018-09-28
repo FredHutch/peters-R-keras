@@ -73,7 +73,7 @@ x_train=scale(x_train[,1:30000])
 test_uk=scale(test_uk[,1:30000])
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
-epochs = 4, batch_size = nrow(x_train),
+epochs = 10, batch_size = nrow(x_train),
 validation_data = list(test_uk, y_uk), shuffle = TRUE,
 callbacks = list(checkpoint, reduce_lr)
 )
@@ -85,6 +85,6 @@ max(history.reg$metrics$val_acc)
 # load and evaluate best model
 rm(parallel_model)
 model.reg <- keras:::keras$models$load_model(filepath)
-score=parallel_model %>% predict(test_uk,batch_size=nrow(test_uk))
+score=model.reg %>% predict(test_uk,batch_size=nrow(test_uk))
 fwrite(data.frame(score,y_uk),'score.csv')
 
