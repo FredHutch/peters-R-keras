@@ -10,7 +10,7 @@ y_train=x_train[,1]
 
 x_train=data.matrix(x_train[,-c(1:3)])
 #x_train=data.matrix(x_train[,-c(1)])
-x_train=scale(x_train[,1:30000])
+x_train=scale(x_train[,1:50000])
 
 get.gpu.count <- function() {
   out <- system2("nvidia-smi", "-L", stdout=TRUE)
@@ -36,7 +36,7 @@ test_uk=data.frame(test_uk)
 y_uk=test_uk[,1]
 test_uk=data.matrix(test_uk[,-c(1:3)])
 #test_uk=data.matrix(test_uk[,-c(1)])
-test_uk=scale(test_uk[,1:30000])
+test_uk=scale(test_uk[,1:50000])
 ###########test3
 
 #test_plco=fread('test_plco.csv')
@@ -51,7 +51,7 @@ test_uk=scale(test_uk[,1:30000])
 model <- keras_model_sequential()
 
 model %>%
-  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid', input_shape = c(30000)) %>%
+  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid', input_shape = c(50000)) %>%
   layer_dropout(rate = 0.3) %>%
   layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
   layer_dropout(rate = 0.3) %>%
@@ -74,8 +74,8 @@ checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc"
 reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
                                           patience = 20, verbose = 1, mode = "auto",
                                           min_lr = 0.00001)
-x_train=scale(x_train[,1:30000])
-test_uk=scale(test_uk[,1:30000])
+x_train=scale(x_train[,1:50000])
+test_uk=scale(test_uk[,1:50000])
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
 epochs = 10, batch_size = nrow(x_train),
