@@ -57,6 +57,10 @@ model %>%
   layer_dropout(rate = 0.3) %>%
   layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
   layer_dropout(rate = 0.3) %>%
+  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+  layer_dropout(rate = 0.3) %>%
+  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+  layer_dropout(rate = 0.3) %>%
   layer_dense(units = 1, activation = 'sigmoid') 
 
 parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
