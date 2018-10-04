@@ -30,10 +30,10 @@ x_test = x_test[:, 1:17000]
 # Convert model to multi-gpu model using the number
 # of GPUs available on the computer the code is running on.
 encoding_dim = 5000
-input_img = Input(shape=(17000,))
+input_img = Input(shape=(16999,))
 encoded = Dense(encoding_dim, activation='relu')(input_img)
-decoded = Dense(17000, activation='sigmoid')(encoded)
-decoded = Dense(17000, activation='sigmoid')(encoded)
+decoded = Dense(16999, activation='sigmoid')(encoded)
+decoded = Dense(16999, activation='sigmoid')(encoded)
 autoencoder = Model(input_img, decoded)
 encoder = Model(input_img, encoded)
 encoded_input = Input(shape=(encoding_dim,))
