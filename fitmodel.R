@@ -51,7 +51,7 @@ test_uk=scale(test_uk[,1:30000])
 model <- keras_model_sequential()
 
 model %>%
-  layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid', input_shape = c(30000)) %>%
+  layer_dense(units = 15000, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid', input_shape = c(30000)) %>%
   layer_dropout(rate = 0.3) %>%
   #layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
   #layer_dropout(rate = 0.3) %>%
