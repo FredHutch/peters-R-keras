@@ -42,7 +42,7 @@ decoder = Model(encoded_input, decoder_layer(encoded_input))
 autoencoder.compile(optimizer='adadelta', loss='binary_crossentropy')
 autoencoder.fit(x_train, x_train,
                 epochs=50,
-                batch_size=256,
+                batch_size=length(x_train),
                 shuffle=True,
                 validation_data=(x_test, x_test))
 encoded_imgs = encoder.predict(x_test)
