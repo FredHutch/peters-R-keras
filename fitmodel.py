@@ -47,7 +47,7 @@ autoencoder.fit(x_train, x_train,
                 validation_data=(x_test, x_test))
 encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
-numpy.vstack((encoded_imgs,decoded_imgs))
+np.vstack((encoded_imgs,decoded_imgs))
 #model = multi_gpu_model(model, gpus=get_gpu_count())
 #model.compile(loss="binary_crossentropy", optimizer="rmsprop", metrics=["accuracy"])
 
