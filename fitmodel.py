@@ -44,13 +44,13 @@ autoencoder.fit(x_train, x_train,
                 epochs=50,
                 batch_size=len(x_train),
                 shuffle=True,
-                validation_data=(x_test, x_test))
+                validation_data=(x_test, y_test))
 encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
-np.vstack((encoded_imgs,decoded_imgs))
+#np.vstack((encoded_imgs,decoded_imgs))
 #model = multi_gpu_model(model, gpus=get_gpu_count())
 #model.compile(loss="binary_crossentropy", optimizer="rmsprop", metrics=["accuracy"])
 
 #model.fit(x_train, y_train, epochs=20, batch_size=128)
 #score = model.evaluate(x_test, y_test, batch_size=128)
-np.savetxt("score.csv", score)
+np.savetxt("score.csv", decoded_imgs)
