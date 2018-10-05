@@ -15,10 +15,10 @@ def get_gpu_count():
 
 x_train = np.loadtxt("x_train.csv", dtype=float, skiprows=1, delimiter=",")
 y_train = x_train[:, 0]
-x_train = x_train[:, 1:10000]
+x_train = x_train[:, 3:10000]
 x_test = np.loadtxt("test_uk.csv", dtype=float, skiprows=1, delimiter=",")
 y_test = x_test[:, 0]
-x_test = x_test[:, 1:10000]
+x_test = x_test[:, 3:10000]
 
 #model = Sequential()
 #model.add(Dense(64, input_dim=16999, activation="relu"))
@@ -29,11 +29,11 @@ x_test = x_test[:, 1:10000]
 
 # Convert model to multi-gpu model using the number
 # of GPUs available on the computer the code is running on.
-encoding_dim = 5000
-input_img = Input(shape=(9999,))
+encoding_dim = 1000
+input_img = Input(shape=(9997,))
 encoded = Dense(encoding_dim, activation='relu')(input_img)
-decoded = Dense(9999, activation='sigmoid')(encoded)
-decoded = Dense(9999, activation='sigmoid')(encoded)
+decoded = Dense(9997, activation='sigmoid')(encoded)
+decoded = Dense(9997, activation='sigmoid')(encoded)
 autoencoder = Model(input_img, decoded)
 encoder = Model(input_img, encoded)
 encoded_input = Input(shape=(encoding_dim,))
