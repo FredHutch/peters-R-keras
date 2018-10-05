@@ -33,7 +33,7 @@ encoding_dim = 1000
 input_img = Input(shape=(9997,))
 encoded = Dense(encoding_dim, activation='relu')(input_img)
 decoded = Dense(9997, activation='sigmoid')(encoded)
-decoded = Dense(9997, activation='sigmoid')(encoded)
+decoded = Dense(1, activation='sigmoid')(encoded)
 autoencoder = Model(input_img, decoded)
 encoder = Model(input_img, encoded)
 encoded_input = Input(shape=(encoding_dim,))
