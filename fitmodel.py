@@ -33,7 +33,7 @@ encoding_dim = 1000
 input_img = Input(shape=(9997,))
 encoded = Dense(encoding_dim, activation='relu')(input_img)
 decoded = Dense(9997, activation='sigmoid')(encoded)
-decoded = Dense(1, activation='sigmoid')(encoded)
+decoded = Dense(9997, activation='sigmoid')(encoded)
 autoencoder = Model(input_img, decoded)
 encoder = Model(input_img, encoded)
 encoded_input = Input(shape=(encoding_dim,))
@@ -44,7 +44,7 @@ autoencoder.fit(x_train, x_train,
                 epochs=50,
                 batch_size=len(x_train),
                 shuffle=True,
-                validation_data=(x_test, y_test))
+                validation_data=(x_test, x_test))
 encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
 #np.vstack((encoded_imgs,decoded_imgs))
