@@ -71,30 +71,32 @@ parallel_model  %>% compile(
   metrics = c('accuracy')
 )
 #score1=c()
-filepath <- "model_reg.hdf5" # set up your own filepath
-checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc", verbose = 1,
-                                       save_best_only = TRUE,
-                                       save_weights_only = FALSE, mode = "auto")
-reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
-                                          patience = 20, verbose = 1, mode = "auto",
-                                          min_lr = 0.00001)
+#filepath <- "model_reg.hdf5" # set up your own filepath
+#checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc", verbose = 1,
+#                                       save_best_only = TRUE,
+#                                       save_weights_only = FALSE, mode = "auto")
+#reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
+#                                          patience = 20, verbose = 1, mode = "auto",
+#                                          min_lr = 0.00001)
 x_train=scale(x_train[,1:30000])
 test_uk=scale(test_uk[,1:30000])
-history.reg <- parallel_model %>% fit(
-x_train, y_train,
-epochs = 10, batch_size = nrow(x_train),
-validation_data = list(test_uk, y_uk), shuffle = FALSE,
-callbacks = list(checkpoint, reduce_lr)
-)
+#history.reg <- parallel_model %>% fit(
+#x_train, y_train,
+#epochs = 10, batch_size = nrow(x_train),
+#validation_data = list(test_uk, y_uk), shuffle = FALSE,
+#callbacks = list(checkpoint, reduce_lr)
+#)
+parallel_model %>% fit(x_train, y_train, epochs = 10, batch_size = nrow(x_train))
 # plot training loss and accuracy
-pdf('history.reg.pdf')
-plot(history.reg)
-dev.off()
-max(history.reg$metrics$val_acc)
+#pdf('history.reg.pdf')
+#plot(history.reg)
+#dev.off()
+#max(history.reg$metrics$val_acc)
 # load and evaluate best model
-rm(parallel_model)
-model.reg <- keras:::keras$models$load_model(filepath)
-score=model.reg %>% predict(test_uk,batch_size=nrow(test_uk))
+#rm(parallel_model)
+#model.reg <- keras:::keras$models$load_model(filepath)
+#score=model.reg %>% predict(test_uk,batch_size=nrow(test_uk))
 #score=model.reg %>% predict_proba(test_uk)
+score = parallel_model %>% predict(test_uk,batch_size=nrow(test_uk))
 fwrite(data.frame(score,y_uk),'score.csv')
 
