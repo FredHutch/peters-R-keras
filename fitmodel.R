@@ -101,5 +101,5 @@ parallel_model %>% fit(x_train, y_train, epochs = 10, batch_size = nrow(x_train)
 score = parallel_model %>% predict(test_uk,batch_size=nrow(test_uk))
 fscore=cbind(fscore,score)
 }
-fwrite(data.frame(score,y_uk),'score.csv')
+fwrite(data.frame(fscore,y_uk),'score.csv')
 
