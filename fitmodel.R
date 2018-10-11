@@ -50,7 +50,7 @@ test_uk=scale(test_uk[,1:30000])
 
 act=c('relu','elu','selu','tanh','exponential')
 model <- keras_model_sequential()
-fscore=data.frame()
+fscore=matrix(0,length(y_uk),1)
 for(i in 1:5){
 model %>%
   layer_dense(units = 10, kernel_regularizer = regularizer_l2(0.00001), activation = act[i], input_shape = c(30000)) %>%
