@@ -38,7 +38,8 @@ test_uk=data.matrix(test_uk[,-c(1:3)])
 #test_uk=data.matrix(test_uk[,-c(1)])
 test_uk=scale(test_uk[,1:30000])
 ###########test3
-
+x_train=scale(x_train[,1:30000])
+test_uk=scale(test_uk[,1:30000])
 #test_plco=fread('test_plco.csv')
 
 #test_plco=data.frame(test_plco)
@@ -47,11 +48,12 @@ test_uk=scale(test_uk[,1:30000])
 
 #test_plco=data.matrix(test_plco[,-1])
 
-
+act=c('relu','elu','selu','tanh','exponential')
 model <- keras_model_sequential()
-
+fscore=data.frame()
+for(i in 1:5){
 model %>%
-  layer_dense(units = 10, kernel_regularizer = regularizer_l2(0.00001), activation = 'sigmoid', input_shape = c(30000)) %>%
+  layer_dense(units = 10, kernel_regularizer = regularizer_l2(0.00001), activation = act[i], input_shape = c(30000)) %>%
   layer_dropout(rate = 0.3) %>%
   #layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
   #layer_dropout(rate = 0.3) %>%
@@ -78,8 +80,7 @@ parallel_model  %>% compile(
 #reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
 #                                          patience = 20, verbose = 1, mode = "auto",
 #                                          min_lr = 0.00001)
-x_train=scale(x_train[,1:30000])
-test_uk=scale(test_uk[,1:30000])
+
 #history.reg <- parallel_model %>% fit(
 #x_train, y_train,
 #epochs = 10, batch_size = nrow(x_train),
@@ -98,5 +99,7 @@ parallel_model %>% fit(x_train, y_train, epochs = 10, batch_size = nrow(x_train)
 #score=model.reg %>% predict(test_uk,batch_size=nrow(test_uk))
 #score=model.reg %>% predict_proba(test_uk)
 score = parallel_model %>% predict(test_uk,batch_size=nrow(test_uk))
+fscore=cbind(fscore,score)
+}
 fwrite(data.frame(score,y_uk),'score.csv')
 
