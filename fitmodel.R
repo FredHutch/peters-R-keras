@@ -48,13 +48,13 @@ test_uk=scale(test_uk[,1:30000])
 
 #test_plco=data.matrix(test_plco[,-1])
 
-act=c(0,0.1,0.2,0.3)
+act=c(10,100,1000,2000)
 model <- keras_model_sequential()
 fscore=matrix(0,length(y_uk),1)
 for(i in 1:4){
 model %>%
-  layer_dense(units = 10, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh', input_shape = c(30000)) %>%
-  layer_dropout(rate = act[i]) %>%
+  layer_dense(units = act[i], kernel_regularizer = regularizer_l2(0.01), activation = 'tanh', input_shape = c(30000)) %>%
+  layer_dropout(rate = 0) %>%
   #layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
   #layer_dropout(rate = 0.3) %>%
   #layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
