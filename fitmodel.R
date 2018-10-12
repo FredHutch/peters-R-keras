@@ -48,10 +48,10 @@ test_uk=scale(test_uk[,1:30000])
 
 #test_plco=data.matrix(test_plco[,-1])
 
-act=c('relu','elu','selu','tanh','exponential')
+act=c('relu','elu','selu','tanh')
 model <- keras_model_sequential()
 fscore=matrix(0,length(y_uk),1)
-for(i in 1:5){
+for(i in 1:4){
 model %>%
   layer_dense(units = 10, kernel_regularizer = regularizer_l2(0.00001), activation = act[i], input_shape = c(30000)) %>%
   layer_dropout(rate = 0.3) %>%
