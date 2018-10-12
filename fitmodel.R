@@ -38,8 +38,8 @@ test_uk=data.matrix(test_uk[,-c(1:3)])
 #test_uk=data.matrix(test_uk[,-c(1)])
 test_uk=scale(test_uk[,1:30000])
 ###########test3
-x_train=scale(x_train[,1:30000])
-test_uk=scale(test_uk[,1:30000])
+x_train=scale(x_train[,1:10000])
+test_uk=scale(test_uk[,1:10000])
 #test_plco=fread('test_plco.csv')
 
 #test_plco=data.frame(test_plco)
@@ -53,7 +53,7 @@ model <- keras_model_sequential()
 fscore=matrix(0,length(y_uk),1)
 #for(i in 1:4){
 model %>%
-  layer_dense(units = 15000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh', input_shape = c(30000)) %>%
+  layer_dense(units = 10000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh', input_shape = c(10000)) %>%
   layer_dropout(rate = 0) %>%
   #layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
   #layer_dropout(rate = 0.3) %>%
