@@ -53,7 +53,7 @@ model <- keras_model_sequential()
 fscore=matrix(0,length(y_uk),1)
 #for(i in 1:4){
 model %>%
-  layer_dense(units = 5000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh', input_shape = c(30000)) %>%
+  layer_dense(units = 15000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh', input_shape = c(30000)) %>%
   layer_dropout(rate = 0) %>%
   #layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
   #layer_dropout(rate = 0.3) %>%
