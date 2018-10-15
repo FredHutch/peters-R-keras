@@ -53,15 +53,15 @@ model <- keras_model_sequential()
 fscore=matrix(0,length(y_uk),1)
 #for(i in 1:4){
 model %>%
- layer_dense(units = 2000, kernel_regularizer = regularizer_l2(0.01), activation = 'sigmoid', input_shape = c(30000)) %>%
+ layer_dense(units = 2000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh', input_shape = c(30000)) %>%
  layer_dropout(rate = 0) %>%
- layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.01), activation = 'sigmoid') %>%
+ layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
  layer_dropout(rate = 0) %>%
- layer_dense(units = 500, kernel_regularizer = regularizer_l2(0.01), activation = 'sigmoid') %>%
+ layer_dense(units = 500, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
  layer_dropout(rate = 0) %>%
- layer_dense(units = 250, kernel_regularizer = regularizer_l2(0.01), activation = 'sigmoid') %>%
+ layer_dense(units = 250, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
  layer_dropout(rate = 0) %>%
- layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.01), activation = 'sigmoid') %>%
+ layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
  layer_dropout(rate = 0) %>%
   #layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
   #layer_dropout(rate = 0.3) %>%
@@ -76,7 +76,7 @@ parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 parallel_model  %>% compile(
   loss = 'binary_crossentropy',
   #optimizer = optimizer_rmsprop(lr=0.001),
-  optimizer = optimizer_adam(lr=0.001),
+  optimizer = optimizer_adam(lr=0.01),
   metrics = c('accuracy')
 )
 #score1=c()
