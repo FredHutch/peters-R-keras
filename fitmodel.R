@@ -57,6 +57,8 @@ model %>%
  layer_dropout(rate = 0) %>%
  layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
  layer_dropout(rate = 0) %>%
+layer_dense(units = 500, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
+ layer_dropout(rate = 0) %>%
   #layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
   #layer_dropout(rate = 0.3) %>%
   #layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
