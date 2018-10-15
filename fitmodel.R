@@ -94,7 +94,7 @@ parallel_model  %>% compile(
 #validation_data = list(test_uk, y_uk), shuffle = FALSE,
 #callbacks = list(checkpoint, reduce_lr)
 #)
-parallel_model %>% fit(x_train, y_train, epochs = 100, batch_size = nrow(x_train))
+parallel_model %>% fit(x_train, y_train, epochs = 10, batch_size = nrow(x_train))
 # plot training loss and accuracy
 #pdf('history.reg.pdf')
 #plot(history.reg)
