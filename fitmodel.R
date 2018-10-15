@@ -1,5 +1,4 @@
 library(keras)
-library(pROC)
 library(data.table)
 
 x_train=fread('x_train.csv')
@@ -72,16 +71,16 @@ model %>%
   layer_dense(units = 1, activation = 'sigmoid') 
 
 parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
-metric_auc <- custom_metric("AUC", function(y_true, y_pred) {
-   roc(y_true,y_pred)$auc
-})
+#metric_auc <- custom_metric("AUC", function(y_true, y_pred) {
+#   roc(y_true,y_pred)$auc
+#})
 
 parallel_model  %>% compile(
   loss = 'binary_crossentropy',
   #optimizer = optimizer_rmsprop(lr=0.001),
   optimizer = optimizer_adam(lr=0.001),
-  #metrics = c('accuracy')
-  metrics = c(metric_auc)
+  metrics = c('accuracy')
+  #metrics = c(metric_auc)
 )
 #score1=c()
 #filepath <- "model_reg.hdf5" # set up your own filepath
