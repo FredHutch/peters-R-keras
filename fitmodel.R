@@ -10,7 +10,7 @@ y_train=x_train[,1]
 
 x_train=data.matrix(x_train[,-c(1:3)])
 #x_train=data.matrix(x_train[,-c(1)])
-x_train=scale(x_train[,1:50000])
+x_train=scale(x_train[,1:30000])
 
 get.gpu.count <- function() {
   out <- system2("nvidia-smi", "-L", stdout=TRUE)
@@ -36,7 +36,7 @@ test_uk=data.frame(test_uk)
 y_uk=test_uk[,1]
 test_uk=data.matrix(test_uk[,-c(1:3)])
 #test_uk=data.matrix(test_uk[,-c(1)])
-test_uk=scale(test_uk[,1:50000])
+test_uk=scale(test_uk[,1:30000])
 ###########test3
 #x_train=scale(x_train[,1:30000])
 #test_uk=scale(test_uk[,1:30000])
@@ -53,7 +53,7 @@ model <- keras_model_sequential()
 fscore=matrix(0,length(y_uk),1)
 #for(i in 1:4){
 model %>%
- layer_dense(units = 2000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh', input_shape = c(50000)) %>%
+ layer_dense(units = 2000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh', input_shape = c(30000)) %>%
  layer_dropout(rate = 0) %>%
  layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
  layer_dropout(rate = 0) %>%
@@ -94,7 +94,7 @@ parallel_model  %>% compile(
 #validation_data = list(test_uk, y_uk), shuffle = FALSE,
 #callbacks = list(checkpoint, reduce_lr)
 #)
-parallel_model %>% fit(x_train, y_train, epochs = 9, batch_size = nrow(x_train))
+parallel_model %>% fit(x_train, y_train, epochs = 100, batch_size = nrow(x_train))
 # plot training loss and accuracy
 #pdf('history.reg.pdf')
 #plot(history.reg)
