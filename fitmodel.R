@@ -38,8 +38,8 @@ test_uk=data.matrix(test_uk[,-c(1:3)])
 #test_uk=data.matrix(test_uk[,-c(1)])
 test_uk=scale(test_uk[,1:30000])
 ###########test3
-x_train=scale(x_train[,1:30000])
-test_uk=scale(test_uk[,1:30000])
+#x_train=scale(x_train[,1:30000])
+#test_uk=scale(test_uk[,1:30000])
 #test_plco=fread('test_plco.csv')
 
 #test_plco=data.frame(test_plco)
