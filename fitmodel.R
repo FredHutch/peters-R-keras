@@ -9,7 +9,7 @@ y_train=x_train[,1]
 
 x_train=data.matrix(x_train[,-c(1:3)])
 #x_train=data.matrix(x_train[,-c(1)])
-x_train=scale(x_train[,1:30000])
+x_train=scale(x_train[,1:15000])
 
 get.gpu.count <- function() {
   out <- system2("nvidia-smi", "-L", stdout=TRUE)
@@ -35,7 +35,7 @@ test_uk=data.frame(test_uk)
 y_uk=test_uk[,1]
 test_uk=data.matrix(test_uk[,-c(1:3)])
 #test_uk=data.matrix(test_uk[,-c(1)])
-test_uk=scale(test_uk[,1:30000])
+test_uk=scale(test_uk[,1:15000])
 ###########test3
 #x_train=scale(x_train[,1:30000])
 #test_uk=scale(test_uk[,1:30000])
@@ -65,7 +65,7 @@ fscore=matrix(0,length(y_uk),1)
  #layer_dropout(rate = 0) %>%
  #layer_dense(units = 1, activation = 'sigmoid') 
 model %>% 
-  layer_embedding(input_dim = 30000, output_dim =15000) %>% 
+  layer_embedding(input_dim = 15000, output_dim =5000) %>% 
   layer_lstm(units = 128) %>% 
   layer_dropout(rate = 0.5) %>% 
   layer_dense(units = 1, activation = 'sigmoid') 
