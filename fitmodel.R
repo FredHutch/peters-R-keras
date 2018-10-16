@@ -64,6 +64,16 @@ fscore=matrix(0,length(y_uk),1)
  #layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
  #layer_dropout(rate = 0) %>%
  #layer_dense(units = 1, activation = 'sigmoid') 
+x_train <- as.matrix(x_train)
+y_train <- as.matrix(y_train)
+dim(x_train) <- c(1, dim(x_train))
+dim(y_train) <- c(1, dim(y_train))
+test_uk <- as.matrix(test_uk)
+y_uk <- as.matrix(y_uk)
+dim(test_uk) <- c(1, dim(test_uk))
+dim(y_uk) <- c(1, dim(y_uk))
+
+
 model %>% 
   layer_conv_1d(filters = 64, kernel_size = 3, activation = 'tanh',
                 input_shape = c(10000,100)) %>% 
