@@ -9,7 +9,7 @@ y_train=x_train[,1]
 
 x_train=data.matrix(x_train[,-c(1:3)])
 #x_train=data.matrix(x_train[,-c(1)])
-x_train=scale(x_train[,1:10000])
+x_train=scale(x_train[,1:15000])
 
 get.gpu.count <- function() {
   out <- system2("nvidia-smi", "-L", stdout=TRUE)
@@ -35,7 +35,7 @@ test_uk=data.frame(test_uk)
 y_uk=test_uk[,1]
 test_uk=data.matrix(test_uk[,-c(1:3)])
 #test_uk=data.matrix(test_uk[,-c(1)])
-test_uk=scale(test_uk[,1:10000])
+test_uk=scale(test_uk[,1:15000])
 ###########test3
 #x_train=scale(x_train[,1:30000])
 #test_uk=scale(test_uk[,1:30000])
@@ -66,21 +66,21 @@ fscore=matrix(0,length(y_uk),1)
  #layer_dense(units = 1, activation = 'sigmoid') 
 x_train <- as.matrix(x_train)
 #y_train <- as.matrix(y_train)
-dim(x_train) <- c(dim(x_train),10)
+dim(x_train) <- c(dim(x_train),1)
 #dim(y_train) <- c(dim(y_train),1)
 test_uk <- as.matrix(test_uk)
 #y_uk <- as.matrix(y_uk)
-dim(test_uk) <- c(dim(test_uk),10)
+dim(test_uk) <- c(dim(test_uk),1)
 #dim(y_uk) <- c(dim(y_uk),1)
 
 
 model %>% 
-  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'tanh',
-                input_shape = c(10000,10)) %>% 
-  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'tanh') %>% 
+  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
+                input_shape = c(15000,1)) %>% 
+  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
   layer_max_pooling_1d(pool_size = 3) %>% 
-  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'tanh') %>% 
-  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'tanh') %>% 
+  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
+  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
   layer_global_average_pooling_1d() %>% 
   layer_dropout(rate = 0.5) %>% 
   layer_dense(units = 1, activation = 'sigmoid') 
