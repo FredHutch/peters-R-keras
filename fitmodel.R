@@ -65,8 +65,13 @@ fscore=matrix(0,length(y_uk),1)
  #layer_dropout(rate = 0) %>%
  #layer_dense(units = 1, activation = 'sigmoid') 
 model %>% 
-  layer_embedding(input_dim = 500, output_dim =500,input_length=10000) %>% 
-  layer_lstm(units = 128) %>% 
+  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'tanh',
+                input_shape = c(10000)) %>% 
+  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'tanh') %>% 
+  layer_max_pooling_1d(pool_size = 3) %>% 
+  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'tanh') %>% 
+  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'tanh') %>% 
+  layer_global_average_pooling_1d() %>% 
   layer_dropout(rate = 0.5) %>% 
   layer_dense(units = 1, activation = 'sigmoid') 
 
