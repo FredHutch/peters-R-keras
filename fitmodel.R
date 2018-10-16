@@ -65,7 +65,7 @@ fscore=matrix(0,length(y_uk),1)
  #layer_dropout(rate = 0) %>%
  #layer_dense(units = 1, activation = 'sigmoid') 
 model %>% 
-  layer_embedding(input_dim = 500, output_dim =500) %>% 
+  layer_embedding(input_dim = 500, output_dim =500,input_length=10000) %>% 
   layer_lstm(units = 128) %>% 
   layer_dropout(rate = 0.5) %>% 
   layer_dense(units = 1, activation = 'sigmoid') 
