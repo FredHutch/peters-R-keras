@@ -66,7 +66,7 @@ fscore=matrix(0,length(y_uk),1)
  #layer_dense(units = 1, activation = 'sigmoid') 
 model %>% 
   layer_conv_1d(filters = 64, kernel_size = 3, activation = 'tanh',
-                input_shape = c(10000)) %>% 
+                input_shape = c(10000,100)) %>% 
   layer_conv_1d(filters = 64, kernel_size = 3, activation = 'tanh') %>% 
   layer_max_pooling_1d(pool_size = 3) %>% 
   layer_conv_1d(filters = 128, kernel_size = 3, activation = 'tanh') %>% 
