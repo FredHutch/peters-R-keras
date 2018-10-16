@@ -65,13 +65,13 @@ fscore=matrix(0,length(y_uk),1)
  #layer_dropout(rate = 0) %>%
  #layer_dense(units = 1, activation = 'sigmoid') 
 x_train <- as.matrix(x_train)
-y_train <- as.matrix(y_train)
+#y_train <- as.matrix(y_train)
 dim(x_train) <- c(dim(x_train),1)
-dim(y_train) <- c(dim(y_train),1)
+#dim(y_train) <- c(dim(y_train),1)
 test_uk <- as.matrix(test_uk)
-y_uk <- as.matrix(y_uk)
+#y_uk <- as.matrix(y_uk)
 dim(test_uk) <- c(dim(test_uk),1)
-dim(y_uk) <- c(dim(y_uk),1)
+#dim(y_uk) <- c(dim(y_uk),1)
 
 
 model %>% 
