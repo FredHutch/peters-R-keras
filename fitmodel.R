@@ -9,7 +9,7 @@ y_train=x_train[,1]
 
 x_train=data.matrix(x_train[,-c(1:3)])
 #x_train=data.matrix(x_train[,-c(1)])
-x_train=scale(x_train[,1:30000])
+x_train=scale(x_train[,1:50000])
 
 get.gpu.count <- function() {
   out <- system2("nvidia-smi", "-L", stdout=TRUE)
@@ -35,7 +35,7 @@ test_uk=data.frame(test_uk)
 y_uk=test_uk[,1]
 test_uk=data.matrix(test_uk[,-c(1:3)])
 #test_uk=data.matrix(test_uk[,-c(1)])
-test_uk=scale(test_uk[,1:30000])
+test_uk=scale(test_uk[,1:50000])
 ###########test3
 #x_train=scale(x_train[,1:30000])
 #test_uk=scale(test_uk[,1:30000])
@@ -76,7 +76,7 @@ dim(test_uk) <- c(dim(test_uk),1)
 
 model %>% 
   layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
-                input_shape = c(30000,1)) %>% 
+                input_shape = c(50000,1)) %>% 
   layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
   layer_max_pooling_1d(pool_size = 3) %>% 
   layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
