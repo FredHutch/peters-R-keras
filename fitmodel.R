@@ -112,8 +112,8 @@ parallel_model  %>% compile(
 #validation_data = list(test_uk, y_uk), shuffle = FALSE,
 #callbacks = list(checkpoint, reduce_lr)
 #)
-#parallel_model %>% fit(x_train, y_train, epochs = 10, batch_size = nrow(x_train))
-parallel_model %>% fit(x_train, y_train, epochs = 10, batch_size = 500)
+parallel_model %>% fit(x_train, y_train, epochs = 100, batch_size = nrow(x_train))
+#parallel_model %>% fit(x_train, y_train, epochs = 10, batch_size = 500)
 # plot training loss and accuracy
 #pdf('history.reg.pdf')
 #plot(history.reg)
@@ -124,8 +124,8 @@ parallel_model %>% fit(x_train, y_train, epochs = 10, batch_size = 500)
 #model.reg <- keras:::keras$models$load_model(filepath)
 #score=model.reg %>% predict(test_uk,batch_size=nrow(test_uk))
 #score=model.reg %>% predict_proba(test_uk)
-#score = parallel_model %>% predict(test_uk,batch_size=nrow(test_uk))
-score = parallel_model %>% predict(test_uk,batch_size=500)
+score = parallel_model %>% predict(test_uk,batch_size=nrow(test_uk))
+#score = parallel_model %>% predict(test_uk,batch_size=500)
 #fscore=cbind(fscore,score)
 #}
 fwrite(data.frame(score,y_uk),'score.csv')
