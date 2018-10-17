@@ -9,7 +9,7 @@ y_train=x_train[,1]
 
 x_train=data.matrix(x_train[,-c(1:3)])
 #x_train=data.matrix(x_train[,-c(1)])
-x_train=scale(x_train[,1:15000])
+x_train=scale(x_train[,1:30000])
 
 get.gpu.count <- function() {
   out <- system2("nvidia-smi", "-L", stdout=TRUE)
@@ -35,7 +35,7 @@ test_uk=data.frame(test_uk)
 y_uk=test_uk[,1]
 test_uk=data.matrix(test_uk[,-c(1:3)])
 #test_uk=data.matrix(test_uk[,-c(1)])
-test_uk=scale(test_uk[,1:15000])
+test_uk=scale(test_uk[,1:30000])
 ###########test3
 #x_train=scale(x_train[,1:30000])
 #test_uk=scale(test_uk[,1:30000])
