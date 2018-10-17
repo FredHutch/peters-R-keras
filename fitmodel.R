@@ -52,38 +52,34 @@ model <- keras_model_sequential()
 fscore=matrix(0,length(y_uk),1)
 #for(i in 1:4){
 ###MLP NN
-#model %>%
- #layer_dense(units = 2000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh', input_shape = c(30000)) %>%
- #layer_dropout(rate = 0) %>%
- #layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
- #layer_dropout(rate = 0) %>%
- #layer_dense(units = 500, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
- #layer_dropout(rate = 0) %>%
- #layer_dense(units = 250, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
- #layer_dropout(rate = 0) %>%
- #layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
- #layer_dropout(rate = 0) %>%
- #layer_dense(units = 1, activation = 'sigmoid') 
-x_train <- as.matrix(x_train)
-#y_train <- as.matrix(y_train)
-dim(x_train) <- c(dim(x_train),1)
-#dim(y_train) <- c(dim(y_train),1)
-test_uk <- as.matrix(test_uk)
-#y_uk <- as.matrix(y_uk)
-dim(test_uk) <- c(dim(test_uk),1)
-#dim(y_uk) <- c(dim(y_uk),1)
+model %>%
+ layer_dense(units = 2000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh', input_shape = c(50000)) %>%
+ layer_dropout(rate = 0) %>%
+ layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
+ layer_dropout(rate = 0) %>%
+ layer_dense(units = 500, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
+layer_dropout(rate = 0) %>%
+ layer_dense(units = 250, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
+ layer_dropout(rate = 0) %>%
+ layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.01), activation = 'tanh') %>%
+ layer_dropout(rate = 0) %>%
+ layer_dense(units = 1, activation = 'sigmoid') 
 
-
-model %>% 
-  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
-                input_shape = c(50000,1)) %>% 
-  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
-  layer_max_pooling_1d(pool_size = 3) %>% 
-  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
-  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
-  layer_global_average_pooling_1d() %>% 
-  layer_dropout(rate = 0.5) %>% 
-  layer_dense(units = 1, activation = 'sigmoid') 
+###CNN
+#x_train <- as.matrix(x_train)
+#dim(x_train) <- c(dim(x_train),1)
+#test_uk <- as.matrix(test_uk)
+#dim(test_uk) <- c(dim(test_uk),1)
+#model %>% 
+#  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
+#                input_shape = c(50000,1)) %>% 
+#  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
+#  layer_max_pooling_1d(pool_size = 3) %>% 
+#  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
+#  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
+#  layer_global_average_pooling_1d() %>% 
+#  layer_dropout(rate = 0.5) %>% 
+#  layer_dense(units = 1, activation = 'sigmoid') 
 
 parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 #metric_auc <- custom_metric("AUC", function(y_true, y_pred) {
@@ -112,8 +108,8 @@ parallel_model  %>% compile(
 #validation_data = list(test_uk, y_uk), shuffle = FALSE,
 #callbacks = list(checkpoint, reduce_lr)
 #)
-#parallel_model %>% fit(x_train, y_train, epochs = 100, batch_size = nrow(x_train))
-parallel_model %>% fit(x_train, y_train, epochs = 100, batch_size = 500)
+parallel_model %>% fit(x_train, y_train, epochs = 100, batch_size = nrow(x_train))
+#parallel_model %>% fit(x_train, y_train, epochs = 100, batch_size = 500)
 # plot training loss and accuracy
 #pdf('history.reg.pdf')
 #plot(history.reg)
@@ -124,8 +120,8 @@ parallel_model %>% fit(x_train, y_train, epochs = 100, batch_size = 500)
 #model.reg <- keras:::keras$models$load_model(filepath)
 #score=model.reg %>% predict(test_uk,batch_size=nrow(test_uk))
 #score=model.reg %>% predict_proba(test_uk)
-#score = parallel_model %>% predict(test_uk,batch_size=nrow(test_uk))
-score = parallel_model %>% predict(test_uk,batch_size=500)
+score = parallel_model %>% predict(test_uk,batch_size=nrow(test_uk))
+#score = parallel_model %>% predict(test_uk,batch_size=500)
 #fscore=cbind(fscore,score)
 #}
 fwrite(data.frame(score,y_uk),'score.csv')
