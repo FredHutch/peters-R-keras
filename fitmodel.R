@@ -76,7 +76,7 @@ dim(test_uk) <- c(dim(test_uk),1)
 
 model %>% 
   layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
-                input_shape = c(15000,1)) %>% 
+                input_shape = c(30000,1)) %>% 
   layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
   layer_max_pooling_1d(pool_size = 3) %>% 
   layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
