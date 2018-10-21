@@ -53,7 +53,7 @@ fscore=matrix(0,length(y_uk),1)
 #for(i in 1:4){
 ###MLP NN
 model %>%
- layer_dense(units = 2000, kernel_regularizer = regularizer_l2(0.001), activation = 'tanh', input_shape = c(50000)) %>%
+ layer_dense(units = 5000, kernel_regularizer = regularizer_l2(0.001), activation = 'tanh', input_shape = c(30000)) %>%
  layer_dropout(rate = 0.2) %>%
  layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.001), activation = 'tanh') %>%
  layer_dropout(rate = 0.2) %>%
