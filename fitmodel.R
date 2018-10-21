@@ -86,13 +86,13 @@ parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 #   roc(y_true,y_pred)$auc
 #})
 
-#parallel_model  %>% compile(
- # loss = 'binary_crossentropy',
+parallel_model  %>% compile(
+  loss = 'binary_crossentropy',
   #optimizer = optimizer_rmsprop(lr=0.001),
- # optimizer = optimizer_adam(lr=0.0001),
- # metrics = c('accuracy')
-  #metrics = c(metric_auc)
-#)
+ optimizer = optimizer_adam(lr=0.0001),
+ metrics = c('accuracy')
+ metrics = c(metric_auc)
+)
 #score1=c()
 filepath <- "model_reg.hdf5" # set up your own filepath
 checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc", verbose = 1,
