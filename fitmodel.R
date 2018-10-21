@@ -88,8 +88,8 @@ parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 
 parallel_model  %>% compile(
   loss = 'binary_crossentropy',
-  #optimizer = optimizer_rmsprop(lr=0.001),
- optimizer = optimizer_adam(lr=0.01),
+ optimizer = optimizer_rmsprop(lr=0.001),
+ #optimizer = optimizer_adam(lr=0.001),
  metrics = c('accuracy')
  #metrics = c(metric_auc)
 )
