@@ -91,7 +91,7 @@ parallel_model  %>% compile(
   #optimizer = optimizer_rmsprop(lr=0.001),
  optimizer = optimizer_adam(lr=0.0001),
  metrics = c('accuracy')
- metrics = c(metric_auc)
+ #metrics = c(metric_auc)
 )
 #score1=c()
 filepath <- "model_reg.hdf5" # set up your own filepath
