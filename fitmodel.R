@@ -53,15 +53,15 @@ fscore=matrix(0,length(y_uk),1)
 #for(i in 1:4){
 ###MLP NN
 model %>%
- layer_dense(units = 5000, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid', input_shape = c(30000)) %>%
+ layer_dense(units = 5000, kernel_regularizer = regularizer_l2(0.001), activation = 'tanh', input_shape = c(30000)) %>%
  layer_dropout(rate = 0.2) %>%
- layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+ layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.001), activation = 'tanh') %>%
  layer_dropout(rate = 0.2) %>%
- layer_dense(units = 500, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+ layer_dense(units = 500, kernel_regularizer = regularizer_l2(0.001), activation = 'tanh') %>%
 layer_dropout(rate = 0.2) %>%
- layer_dense(units = 250, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+ layer_dense(units = 250, kernel_regularizer = regularizer_l2(0.001), activation = 'tanh') %>%
  layer_dropout(rate = 0.2) %>%
- layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+ layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'tanh') %>%
  layer_dropout(rate = 0.2) %>%
  layer_dense(units = 1, activation = 'sigmoid') 
 
@@ -104,7 +104,7 @@ reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
 
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
-epochs = 10, batch_size = nrow(x_train),
+epochs = 100, batch_size = nrow(x_train),
 validation_data = list(test_uk, y_uk), shuffle = FALSE,
 callbacks = list(checkpoint, reduce_lr)
 )
