@@ -1,61 +1,50 @@
 library(keras)
 library(data.table)
 
-x_train=fread('x_train.csv')
+x_train=fread('train_gwass.txt')
+y_train=x_train$outcome
+x_train=data.frame(x_train[,-19869])
 
-x_train=data.frame(x_train)
-
-y_train=x_train[,1]
-
-x_train=data.matrix(x_train[,-c(1:3)])
-#x_train=data.matrix(x_train[,-c(1)])
-x_train=scale(x_train[,1:30000])
 
 get.gpu.count <- function() {
   out <- system2("nvidia-smi", "-L", stdout=TRUE)
   length(out)
 }
 
+test_uk=fread('train_gwass.txt')
+y_uk=test_uk$outcome
+test_uk=data.frame(test_uk[,-19869])
 
-test_uk=fread('test_uk.csv')
-
-test_uk=data.frame(test_uk)
-
-y_uk=test_uk[,1]
-test_uk=data.matrix(test_uk[,-c(1:3)])
-#test_uk=data.matrix(test_uk[,-c(1)])
-test_uk=scale(test_uk[,1:30000])
-
-model <- keras_model_sequential()
-fscore=matrix(0,length(y_uk),1)
-model %>%
- layer_dense(units = 5000, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid', input_shape = c(30000)) %>%
- layer_dropout(rate = 0.2) %>%
- layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
- layer_dropout(rate = 0.2) %>%
- layer_dense(units = 500, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
-layer_dropout(rate = 0.2) %>%
- layer_dense(units = 250, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
- layer_dropout(rate = 0.2) %>%
- layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
- layer_dropout(rate = 0.2) %>%
- layer_dense(units = 1, activation = 'sigmoid') 
+#model <- keras_model_sequential()
+#fscore=matrix(0,length(y_uk),1)
+#model %>%
+# layer_dense(units = 5000, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid', input_shape = c(30000)) %>%
+# layer_dropout(rate = 0.2) %>%
+# layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+# layer_dropout(rate = 0.2) %>%
+# layer_dense(units = 500, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+#layer_dropout(rate = 0.2) %>%
+# layer_dense(units = 250, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+# layer_dropout(rate = 0.2) %>%
+# layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+# layer_dropout(rate = 0.2) %>%
+# layer_dense(units = 1, activation = 'sigmoid') 
 
 ###CNN
-#x_train <- as.matrix(x_train)
-#dim(x_train) <- c(dim(x_train),1)
-#test_uk <- as.matrix(test_uk)
-#dim(test_uk) <- c(dim(test_uk),1)
-#model %>% 
-#  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
-#                input_shape = c(50000,1)) %>% 
-#  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
-#  layer_max_pooling_1d(pool_size = 3) %>% 
-#  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
-#  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
-#  layer_global_average_pooling_1d() %>% 
-#  layer_dropout(rate = 0.5) %>% 
-#  layer_dense(units = 1, activation = 'sigmoid') 
+x_train <- as.matrix(x_train)
+dim(x_train) <- c(dim(x_train),1)
+test_uk <- as.matrix(test_uk)
+dim(test_uk) <- c(dim(test_uk),1)
+model %>% 
+ layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
+                input_shape = c(19868,1)) %>% 
+  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
+  layer_max_pooling_1d(pool_size = 3) %>% 
+  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
+  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
+  layer_global_average_pooling_1d() %>% 
+  layer_dropout(rate = 0.5) %>% 
+  layer_dense(units = 1, activation = 'sigmoid') 
 
 parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 
@@ -68,13 +57,13 @@ parallel_model  %>% compile(
  #metrics = c(metric_auc)
 )
 #score1=c()
-filepath <- "model_reg.hdf5" # set up your own filepath
-checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc", verbose = 1,
-                                       save_best_only = TRUE,
-                                       save_weights_only = FALSE, mode = "auto")
-reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
-                                          patience = 20, verbose = 1, mode = "auto",
-                                          min_lr = 0.0001)
+#filepath <- "model_reg.hdf5" # set up your own filepath
+#checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc", verbose = 1,
+#                                       save_best_only = TRUE,
+#                                       save_weights_only = FALSE, mode = "auto")
+#reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
+#                                          patience = 20, verbose = 1, mode = "auto",
+#                                          min_lr = 0.0001)
 
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
