@@ -19,7 +19,7 @@ cd peters-R-keras
 
 aws s3 cp $X_TRAIN_S3_URL ./train_gwass.txt
 #aws s3 cp $X_TEST_S3_URL ./x_test.csv
-aws s3 cp $X_TEST_uk_S3_URL ./train_gwass.txt
+aws s3 cp $X_TEST_S3_URL ./test_gwass.txt
 #aws s3 cp $X_TEST_plco_S3_URL ./test_plco.csv
 #aws s3 cp model_reg.hdf5 $MODEL_OUTPUT_S3_URL
 if [ -z ${USE_PYTHON+x} ];
