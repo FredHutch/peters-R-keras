@@ -69,9 +69,7 @@ parallel_model  %>% compile(
 
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
-epochs = 100, batch_size = nrow(x_train),
-validation_data = list(test_uk, y_uk), shuffle = FALSE,
-callbacks = list(checkpoint, reduce_lr)
+epochs = 100, batch_size = nrow(x_train)
 )
 
 #pdf('history.reg.pdf')
