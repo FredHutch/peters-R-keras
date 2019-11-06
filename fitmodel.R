@@ -3,7 +3,7 @@ library(data.table)
 
 x_train=fread('train_gwass.txt')
 y_train=x_train$outcome
-train$outcome=NULL
+x_train$outcome=NULL
 x_train=data.frame(x_train)
 
 
