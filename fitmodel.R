@@ -69,7 +69,7 @@ parallel_model  %>% compile(
 
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
-epochs = 5,batch_size=50000
+epochs = 5,batch_size=10000
 )
 
 #pdf('history.reg.pdf')
