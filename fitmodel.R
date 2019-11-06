@@ -26,7 +26,7 @@ model %>%
  layer_dropout(rate = 0.2) %>%
  layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
 layer_dropout(rate = 0.2) %>%
- layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
+ layer_dense(units = 320, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
  layer_dropout(rate = 0.2) %>%
  layer_dense(units = 12, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
  layer_dropout(rate = 0.2) %>%
