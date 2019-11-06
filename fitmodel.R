@@ -81,7 +81,7 @@ epochs = 100, batch_size =128
 #model.reg <- keras:::keras$models$load_model(filepath)
 #score=model.reg %>% predict(test_uk,batch_size=nrow(test_uk))
 #score=model.reg %>% predict_proba(test_uk)
-score = parallel_model %>% predict(test_uk,batch_size=nrow(test_uk))
+score = parallel_model %>% predict(test_uk,batch_size=128)
 #score = parallel_model %>% predict(test_uk,batch_size=500)
 #fscore=cbind(fscore,score)
 #}
