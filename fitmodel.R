@@ -34,9 +34,9 @@ model %>%
 
 ###CNN
 x_train <- as.matrix(x_train)
-dim(x_train) <- c(dim(x_train),1)
+#dim(x_train) <- c(dim(x_train),1)
 test_uk <- as.matrix(test_uk)
-dim(test_uk) <- c(dim(test_uk),1)
+#dim(test_uk) <- c(dim(test_uk),1)
 #model %>% 
 # layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
 #                input_shape = c(16485,1)) %>% 
@@ -69,7 +69,7 @@ parallel_model  %>% compile(
 
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
-epochs = 100, batch_size =128
+epochs = 100
 )
 
 #pdf('history.reg.pdf')
