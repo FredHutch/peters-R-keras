@@ -72,12 +72,12 @@ validation_data = list(test_uk, y_uk), shuffle = FALSE,
 callbacks = list(checkpoint, reduce_lr)
 )
 
-pdf('history.reg.pdf')
-plot(history.reg)
-dev.off()
-max(history.reg$metrics$val_acc)
+#pdf('history.reg.pdf')
+#plot(history.reg)
+#dev.off()
+#max(history.reg$metrics$val_acc)
 # load and evaluate best model
-rm(parallel_model)
+#rm(parallel_model)
 #model.reg <- keras:::keras$models$load_model(filepath)
 #score=model.reg %>% predict(test_uk,batch_size=nrow(test_uk))
 #score=model.reg %>% predict_proba(test_uk)
