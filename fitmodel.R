@@ -3,7 +3,8 @@ library(data.table)
 
 x_train=fread('train_gwass.txt')
 y_train=x_train$outcome
-x_train=data.frame(x_train[,-19869])
+train$outcome=NULL
+x_train=data.frame(x_train)
 
 
 get.gpu.count <- function() {
@@ -11,12 +12,13 @@ get.gpu.count <- function() {
   length(out)
 }
 
-test_uk=fread('train_gwass.txt')
+test_uk=fread('eur_crc_test.txt')
 y_uk=test_uk$outcome
-test_uk=data.frame(test_uk[,-19869])
+test_uk$outcome=NULL
+test_uk=data.frame(test_uk)
 
-#model <- keras_model_sequential()
-#fscore=matrix(0,length(y_uk),1)
+model <- keras_model_sequential()
+fscore=matrix(0,length(y_uk),1)
 #model %>%
 # layer_dense(units = 5000, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid', input_shape = c(30000)) %>%
 # layer_dropout(rate = 0.2) %>%
@@ -37,7 +39,7 @@ test_uk <- as.matrix(test_uk)
 dim(test_uk) <- c(dim(test_uk),1)
 model %>% 
  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
-                input_shape = c(19868,1)) %>% 
+                input_shape = c(16485,1)) %>% 
   layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
   layer_max_pooling_1d(pool_size = 3) %>% 
   layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
