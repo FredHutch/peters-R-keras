@@ -22,7 +22,7 @@ fscore=matrix(0,length(y_uk),1)
 model %>%
  layer_dense(units = 4, kernel_regularizer = regularizer_l2(0.001), activation = 'relu', input_shape = c(ncol(x_train))) %>%
  layer_dropout(rate = 0.2) %>%
- layer_dense(units = 2, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+ layer_dense(units = 2, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
 # layer_dropout(rate = 0.2) %>%
 # layer_dense(units = 500, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
 #layer_dropout(rate = 0.2) %>%
@@ -69,7 +69,7 @@ parallel_model  %>% compile(
 
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
-epochs = 100,batch_size=50000
+epochs = 5,batch_size=50000
 )
 
 #pdf('history.reg.pdf')
