@@ -20,15 +20,15 @@ test_uk=data.frame(test_uk)
 model <- keras_model_sequential()
 fscore=matrix(0,length(y_uk),1)
 model %>%
- layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.001), activation = 'relu', input_shape = c(ncol(x_train))) %>%
+ layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid', input_shape = c(ncol(x_train))) %>%
  layer_dropout(rate = 0.2) %>%
- layer_dense(units = 16, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
-# layer_dropout(rate = 0.2) %>%
-# layer_dense(units = 500, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
-#layer_dropout(rate = 0.2) %>%
-# layer_dense(units = 250, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
-# layer_dropout(rate = 0.2) %>%
-# layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+ layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+ layer_dropout(rate = 0.2) %>%
+ layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+layer_dropout(rate = 0.2) %>%
+ layer_dense(units = 320, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+ layer_dropout(rate = 0.2) %>%
+ layer_dense(units = 12, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
  layer_dropout(rate = 0.2) %>%
  layer_dense(units = 1, activation = 'sigmoid') 
 
