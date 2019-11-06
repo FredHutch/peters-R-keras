@@ -19,34 +19,34 @@ test_uk=data.frame(test_uk)
 
 model <- keras_model_sequential()
 fscore=matrix(0,length(y_uk),1)
-#model %>%
-# layer_dense(units = 5000, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid', input_shape = c(30000)) %>%
-# layer_dropout(rate = 0.2) %>%
-# layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
+model %>%
+ layer_dense(units = 5000, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid', input_shape = c(ncol(x_train))) %>%
+ layer_dropout(rate = 0.2) %>%
+ layer_dense(units = 1000, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
 # layer_dropout(rate = 0.2) %>%
 # layer_dense(units = 500, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
 #layer_dropout(rate = 0.2) %>%
 # layer_dense(units = 250, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
 # layer_dropout(rate = 0.2) %>%
 # layer_dense(units = 150, kernel_regularizer = regularizer_l2(0.001), activation = 'sigmoid') %>%
-# layer_dropout(rate = 0.2) %>%
-# layer_dense(units = 1, activation = 'sigmoid') 
+ layer_dropout(rate = 0.2) %>%
+ layer_dense(units = 1, activation = 'sigmoid') 
 
 ###CNN
 x_train <- as.matrix(x_train)
 dim(x_train) <- c(dim(x_train),1)
 test_uk <- as.matrix(test_uk)
 dim(test_uk) <- c(dim(test_uk),1)
-model %>% 
- layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
-                input_shape = c(16485,1)) %>% 
-  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
-  layer_max_pooling_1d(pool_size = 3) %>% 
-  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
-  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
-  layer_global_average_pooling_1d() %>% 
-  layer_dropout(rate = 0.5) %>% 
-  layer_dense(units = 1, activation = 'sigmoid') 
+#model %>% 
+# layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
+#                input_shape = c(16485,1)) %>% 
+#  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
+#  layer_max_pooling_1d(pool_size = 3) %>% 
+ # layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
+#  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
+#  layer_global_average_pooling_1d() %>% 
+#  layer_dropout(rate = 0.5) %>% 
+#  layer_dense(units = 1, activation = 'sigmoid') 
 
 parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 
