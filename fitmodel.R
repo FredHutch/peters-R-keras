@@ -61,7 +61,11 @@ parallel_model  %>% compile(
 #score1=c()
 
 
-filepath <- "model_reg.hdf5" # set up your own filepath
+checkpoint_dir <- "checkpoints"
+dir.create(checkpoint_dir, showWarnings = FALSE)
+filepath <- file.path(checkpoint_dir, "weights.{epoch:02d}-{val_loss:.2f}.hdf5")
+
+
 checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc", verbose = 1,
                                        save_best_only = TRUE,
                                        save_weights_only = TRUE, mode = "auto")
@@ -73,10 +77,10 @@ history.reg <- parallel_model %>% fit(
 x_train, y_train,
 epochs = 10,batch_size=10000,validation_data = list(test_uk,y_uk), callbacks = list(checkpoint)
 )
-save_model_weights_hdf5(parallel_model,filepath)
-fresh_model <- load_model_weights_hdf5(filepath, by_name = TRUE)
+#save_model_weights_hdf5(parallel_model,filepath)
+#fresh_model <- load_model_weights_hdf5(filepath, by_name = TRUE)
 
-score1 = fresh_model %>% predict(test_uk,batch_size=128)
+#score1 = fresh_model %>% predict(test_uk,batch_size=128)
 score = parallel_model %>% predict(test_uk,batch_size=128)
 fwrite(data.frame(score1,score,y_uk),'score.csv')
 
