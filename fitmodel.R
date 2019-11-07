@@ -59,6 +59,19 @@ parallel_model  %>% compile(
  #metrics = c(metric_auc)
 )
 #score1=c()
+checkpoint_dir <- "checkpoints"
+unlink(checkpoint_dir, recursive = TRUE)
+dir.create(checkpoint_dir)
+filepath <- file.path(checkpoint_dir, "weights.{epoch:02d}-{val_loss:.2f}.hdf5")
+
+# Create checkpoint callback
+cp_callback <- callback_model_checkpoint(
+  filepath = filepath,
+  save_weights_only = TRUE,
+  save_best_only = TRUE,
+  verbose = 1
+)
+
 #filepath <- "model_reg.hdf5" # set up your own filepath
 #checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc", verbose = 1,
 #                                       save_best_only = TRUE,
@@ -69,21 +82,10 @@ parallel_model  %>% compile(
 
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
-epochs = 10,batch_size=10000
+epochs = 10,batch_size=10000, callbacks = list(cp_callback)
 )
+list.files(checkpoint_dir)
 
-#pdf('history.reg.pdf')
-#plot(history.reg)
-#dev.off()
-#max(history.reg$metrics$val_acc)
-# load and evaluate best model
-#rm(parallel_model)
-#model.reg <- keras:::keras$models$load_model(filepath)
-#score=model.reg %>% predict(test_uk,batch_size=nrow(test_uk))
-#score=model.reg %>% predict_proba(test_uk)
 score = parallel_model %>% predict(test_uk,batch_size=128)
-#score = parallel_model %>% predict(test_uk,batch_size=500)
-#fscore=cbind(fscore,score)
-#}
 fwrite(data.frame(score,y_uk),'score.csv')
 
