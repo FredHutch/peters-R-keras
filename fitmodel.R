@@ -59,33 +59,25 @@ parallel_model  %>% compile(
  #metrics = c(metric_auc)
 )
 #score1=c()
-checkpoint_dir <- "checkpoints"
-unlink(checkpoint_dir, recursive = TRUE)
-dir.create(checkpoint_dir)
-filepath <- file.path(checkpoint_dir, "weights.{epoch:02d}-{val_loss:.2f}.hdf5")
 
-# Create checkpoint callback
-cp_callback <- callback_model_checkpoint(
-  filepath = filepath,
-  save_weights_only = TRUE,
-  save_best_only = TRUE,
-  verbose = 1
-)
 
-#filepath <- "model_reg.hdf5" # set up your own filepath
-#checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc", verbose = 1,
-#                                       save_best_only = TRUE,
-#                                       save_weights_only = FALSE, mode = "auto")
+filepath <- "model_reg.hdf5" # set up your own filepath
+checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc", verbose = 1,
+                                       save_best_only = TRUE,
+                                       save_weights_only = True, mode = "auto")
 #reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
 #                                          patience = 20, verbose = 1, mode = "auto",
 #                                          min_lr = 0.0001)
 
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
-epochs = 10,batch_size=10000, callbacks = list(cp_callback)
+epochs = 10,batch_size=10000,validation_data = list(test_uk,y_uk), callbacks = list(cp_callback)
 )
-list.files(checkpoint_dir)
 
+fresh_model %>% load_model_weights_hdf5(
+  file.path(filepath)
+)
+score1 = fresh_model %>% predict(test_uk,batch_size=128)
 score = parallel_model %>% predict(test_uk,batch_size=128)
-fwrite(data.frame(score,y_uk),'score.csv')
+fwrite(data.frame(score1,score,y_uk),'score.csv')
 
