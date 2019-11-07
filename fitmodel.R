@@ -73,8 +73,8 @@ history.reg <- parallel_model %>% fit(
 x_train, y_train,
 epochs = 10,batch_size=10000,validation_data = list(test_uk,y_uk), callbacks = list(checkpoint)
 )
-parallel_model %>% save_model_weights_hdf5(filepath)
-fresh_model <- load_model_hdf5(path)
+save_model_weights_hdf5(parallel_model,filepath)
+fresh_model <- load_model_weights(filepath, by_name = TRUE)
 
 score1 = fresh_model %>% predict(test_uk,batch_size=128)
 score = parallel_model %>% predict(test_uk,batch_size=128)
