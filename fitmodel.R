@@ -64,7 +64,7 @@ parallel_model  %>% compile(
 filepath <- "model_reg.hdf5" # set up your own filepath
 checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc", verbose = 1,
                                        save_best_only = TRUE,
-                                       save_weights_only = True, mode = "auto")
+                                       save_weights_only = TRUE, mode = "auto")
 #reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
 #                                          patience = 20, verbose = 1, mode = "auto",
 #                                          min_lr = 0.0001)
