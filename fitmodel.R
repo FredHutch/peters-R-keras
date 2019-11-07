@@ -17,7 +17,7 @@ y_uk=test_uk$outcome
 test_uk$outcome=NULL
 test_uk=data.frame(test_uk)
 
-model <- keras_model_sequential()
+parallel_model <- keras_model_sequential()
 fscore=matrix(0,length(y_uk),1)
 model %>%
  layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.001), activation = 'relu', input_shape = c(ncol(x_train))) %>%
@@ -48,7 +48,7 @@ test_uk <- as.matrix(test_uk)
 #  layer_dropout(rate = 0.5) %>% 
 #  layer_dense(units = 1, activation = 'sigmoid') 
 
-parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
+#parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 
 
 parallel_model  %>% compile(
