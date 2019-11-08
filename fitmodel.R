@@ -83,15 +83,15 @@ score = parallel_model %>% predict(test_uk,batch_size=128)
 list.files(checkpoint_dir)
 create_model <- function() {
   model1 <- keras_model_sequential() %>%
-    layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.001), activation = 'relu', input_shape = c(ncol(x_train))) %>%
+    layer_dense(units = 640, kernel_regularizer = regularizer_l2(0.001), activation = 'relu', input_shape = c(ncol(x_train))) %>%
  layer_dropout(rate = 0.2) %>%
- layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
+ layer_dense(units = 640, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
  layer_dropout(rate = 0.2) %>%
- layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
+ layer_dense(units = 320, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
 layer_dropout(rate = 0.2) %>%
  layer_dense(units = 320, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
  layer_dropout(rate = 0.2) %>%
- layer_dense(units = 12, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
+ layer_dense(units = 120, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
  layer_dropout(rate = 0.2) %>%
  layer_dense(units = 1, activation = 'sigmoid')
   model1 %>% compile(
