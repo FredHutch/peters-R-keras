@@ -80,7 +80,7 @@ epochs = 10,batch_size=10000,validation_data = list(test_uk,y_uk), callbacks = l
 #save_model_weights_hdf5(parallel_model,filepath)
 #fresh_model <- load_model_weights_hdf5(filepath, by_name = TRUE)
 list.files(checkpoint_dir)
-fresh_model <- create_model()
+fresh_model <-  parallel_model
 fresh_model %>% load_model_weights_hdf5(
   file.path(checkpoint_dir, list.files(checkpoint_dir)[1])
 )
