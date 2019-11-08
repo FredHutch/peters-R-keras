@@ -79,13 +79,37 @@ epochs = 10,batch_size=10000,validation_data = list(test_uk,y_uk), callbacks = l
 )
 #save_model_weights_hdf5(parallel_model,filepath)
 #fresh_model <- load_model_weights_hdf5(filepath, by_name = TRUE)
-list.files(checkpoint_dir)
-#fresh_model <-  parallel_model
-#fresh_model %>% load_model_weights_hdf5(
-#  file.path(checkpoint_dir, list.files(checkpoint_dir)[1])
-#)
-
-#score1 = fresh_model %>% predict(test_uk,batch_size=128)
 score = parallel_model %>% predict(test_uk,batch_size=128)
-fwrite(data.frame(score,y_uk),'score.csv')
+list.files(checkpoint_dir)
+create_model <- function() {
+  model1 <- keras_model_sequential() %>%
+    layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.001), activation = 'relu', input_shape = c(ncol(x_train))) %>%
+ layer_dropout(rate = 0.2) %>%
+ layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
+ layer_dropout(rate = 0.2) %>%
+ layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
+layer_dropout(rate = 0.2) %>%
+ layer_dense(units = 320, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
+ layer_dropout(rate = 0.2) %>%
+ layer_dense(units = 12, kernel_regularizer = regularizer_l2(0.001), activation = 'relu') %>%
+ layer_dropout(rate = 0.2) %>%
+ layer_dense(units = 1, activation = 'sigmoid')
+  model1 %>% compile(
+    oloss = 'binary_crossentropy',
+ #optimizer = optimizer_rmsprop(lr=0.001),
+ optimizer = optimizer_adam(lr=0.001),
+ metrics = c('accuracy')
+ #metrics = c(metric_auc)
+)
+  model1
+}
+
+fresh_model <-  create_model()
+fresh_model %>% load_model_weights_hdf5(
+  file.path(checkpoint_dir, list.files(checkpoint_dir)[length(list.files(checkpoint_dir))])
+)
+
+score1 = fresh_model %>% predict(test_uk,batch_size=128)
+
+fwrite(data.frame(score1score,y_uk),'score.csv')
 
