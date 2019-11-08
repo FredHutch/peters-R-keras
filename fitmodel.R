@@ -95,7 +95,7 @@ layer_dropout(rate = 0.2) %>%
  layer_dropout(rate = 0.2) %>%
  layer_dense(units = 1, activation = 'sigmoid')
   model1 %>% compile(
-    oloss = 'binary_crossentropy',
+    loss = 'binary_crossentropy',
  #optimizer = optimizer_rmsprop(lr=0.001),
  optimizer = optimizer_adam(lr=0.001),
  metrics = c('accuracy')
