@@ -28,7 +28,7 @@ layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation 
 layer_dropout(rate = 0.001) %>%
  layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
-layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
  layer_dense(units = 12, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
  layer_dropout(rate = 0.001) %>%
@@ -93,7 +93,7 @@ create_model <- function() {
 layer_dropout(rate = 0.001) %>%
  layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
  layer_dropout(rate = 0.001) %>%
-  layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+  layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
  layer_dense(units = 12, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
  layer_dropout(rate = 0.001) %>%
