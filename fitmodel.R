@@ -88,6 +88,7 @@ epochs = 10,batch_size=10000,validation_data = list(test_uk,y_uk), callbacks = l
 #save_model_weights_hdf5(parallel_model,filepath)
 #fresh_model <- load_model_weights_hdf5(filepath, by_name = TRUE)
 score = parallel_model %>% predict(test_uk,batch_size=128)
+score2 = parallel_model %>% predict(x_train,batch_size=128)
 list.files(checkpoint_dir)
 create_model <- function() {
   model1 <- keras_model_sequential() %>%
@@ -127,5 +128,5 @@ fresh_model %>% load_model_weights_hdf5(
 
 score1 = fresh_model %>% predict(test_uk,batch_size=128)
 
-fwrite(data.frame(score1,score,y_uk),'score.csv')
+fwrite(data.frame(score1,score,score2,y_uk),'score.csv')
 
