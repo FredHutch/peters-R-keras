@@ -128,5 +128,5 @@ fresh_model %>% load_model_weights_hdf5(
 
 score1 = fresh_model %>% predict(test_uk,batch_size=128)
 
-fwrite(data.frame(score1,score,score2,y_uk),'score.csv')
+fwrite(data.frame(score1,score,y_uk),'score.csv')
 fwrite(data.frame(score2,y_train),'score2.csv')
