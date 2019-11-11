@@ -35,5 +35,5 @@ fi
 
 
 aws s3 cp score.csv $SCORE_OUTPUT_S3_URL
-
+aws s3 cp score2.csv $SCORE_OUTPUT_S4_URL
 
