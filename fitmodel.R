@@ -34,6 +34,10 @@ layer_dropout(rate = 0.001) %>%
  layer_dropout(rate = 0.001) %>%
  layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
  layer_dropout(rate = 0.001) %>%
+layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+ layer_dropout(rate = 0.001) %>%
+ layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+ layer_dropout(rate = 0.001) %>%
  layer_dense(units = 1, activation = 'sigmoid') 
 
 ###CNN
@@ -100,6 +104,10 @@ layer_dropout(rate = 0.001) %>%
    layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
  layer_dropout(rate = 0.001) %>%
    layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+ layer_dropout(rate = 0.001) %>%
+  layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+ layer_dropout(rate = 0.001) %>%
+ layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
  layer_dropout(rate = 0.001) %>%
  layer_dense(units = 1, activation = 'sigmoid')
   model1 %>% compile(
