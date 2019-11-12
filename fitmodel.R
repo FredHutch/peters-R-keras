@@ -62,7 +62,7 @@ test_uk <- as.matrix(test_uk)
 parallel_model  %>% compile(
   loss = 'binary_crossentropy',
  #optimizer = optimizer_rmsprop(lr=0.001),
- optimizer = optimizer_adam(lr=0.0001),
+ optimizer = optimizer_adam(lr=0.01),
  metrics = c('accuracy')
  #metrics = c(metric_auc)
 )
@@ -114,7 +114,7 @@ layer_dropout(rate = 0.001) %>%
   model1 %>% compile(
     loss = 'binary_crossentropy',
  #optimizer = optimizer_rmsprop(lr=0.001),
- optimizer = optimizer_adam(lr=0.0001),
+ optimizer = optimizer_adam(lr=0.001),
  metrics = c('accuracy')
  #metrics = c(metric_auc)
 )
