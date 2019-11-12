@@ -115,7 +115,7 @@ layer_dropout(rate = 0.001) %>%
   model1 %>% compile(
     loss = 'binary_crossentropy',
  #optimizer = optimizer_rmsprop(lr=0.001),
- optimizer = optimizer_adam(lr=i),
+ optimizer = optimizer_adam(lr=0.001),
  metrics = c('accuracy')
  #metrics = c(metric_auc)
 )
