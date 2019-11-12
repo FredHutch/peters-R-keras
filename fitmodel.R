@@ -83,7 +83,7 @@ checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc"
 
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
-epochs = 10,batch_size=10000,validation_data = list(test_uk,y_uk), callbacks = list(checkpoint)
+epochs = 10,batch_size=7000,validation_data = list(test_uk,y_uk), callbacks = list(checkpoint)
 )
 #save_model_weights_hdf5(parallel_model,filepath)
 #fresh_model <- load_model_weights_hdf5(filepath, by_name = TRUE)
