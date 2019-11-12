@@ -61,6 +61,7 @@ layer_dropout(rate = 0.001) %>%
  layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
  layer_dropout(rate = 0.001) %>%
  layer_dense(units = 1, activation = 'sigmoid')
+  }
 ###CNN
 x_train <- as.matrix(x_train)
 #dim(x_train) <- c(dim(x_train),1)
@@ -95,8 +96,9 @@ checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc"
 #reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
 #                                          patience = 20, verbose = 1, mode = "auto",
 #                                          min_lr = 0.0001)
-score=data.frame()
-score2=data.frame()
+score=matrix(0,55033)
+score2=matrix(0,68164)
+  j=1
  for( i in c(0.1,0.01,0.001,0.0001)){
  parallel_model  %>% compile(
  loss = 'binary_crossentropy',
@@ -113,22 +115,23 @@ epochs = 10,batch_size=10000,validation_data = list(test_uk,y_uk), callbacks = l
 )
 #save_model_weights_hdf5(parallel_model,filepath)
 #fresh_model <- load_model_weights_hdf5(filepath, by_name = TRUE)
-score = cbind(score,parallel_model %>% predict(test_uk,batch_size=128))
-score2 = cbind(score2,parallel_model %>% predict(x_train,batch_size=128))
+score[,j]=parallel_model %>% predict(test_uk,batch_size=128)
+score2[,j] =parallel_model %>% predict(x_train,batch_size=128)
+   j=j+1
 }
 list.files(checkpoint_dir)
 
-  model1 %>% compile(
+ 
+ 
+
+fresh_model <-  create_model()
+ fresh_model %>% compile(
     loss = 'binary_crossentropy',
  #optimizer = optimizer_rmsprop(lr=0.001),
- optimizer = optimizer_adam(lr=0.005),
+ optimizer = optimizer_adam(lr=i),
  metrics = c('accuracy')
  #metrics = c(metric_auc)
 )
-  model1
-}
-
-fresh_model <-  create_model()
 fresh_model %>% load_model_weights_hdf5(
   file.path(checkpoint_dir, list.files(checkpoint_dir)[length(list.files(checkpoint_dir))])
 )
