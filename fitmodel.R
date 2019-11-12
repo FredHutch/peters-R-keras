@@ -96,8 +96,8 @@ checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc"
 #reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
 #                                          patience = 20, verbose = 1, mode = "auto",
 #                                          min_lr = 0.0001)
-score=matrix(0,55033)
-score2=matrix(0,68164)
+score=matrix(0,55033,10)
+score2=matrix(0,68164,10)
   j=1
  for( i in c(0.1,0.01,0.001,0.0001)){
  parallel_model  %>% compile(
