@@ -2,9 +2,11 @@ library(keras)
 library(data.table)
 
 x_train=fread('train_full.txt')
-x_train=data.frame(x_train)
-x_train=x_train[1:75000,]
 y_train=x_train$outcome
+
+y_train[y_train=='Case']=1
+y_train[y_train=='Control']=0
+
 x_train$outcome=NULL
 x_train=data.frame(x_train)
 
