@@ -1,7 +1,7 @@
 library(keras)
 library(data.table)
 
-x_train=fread('train_gwass.txt')
+x_train=fread('train_full.txt')
 y_train=x_train$outcome
 x_train$outcome=NULL
 x_train=data.frame(x_train)
