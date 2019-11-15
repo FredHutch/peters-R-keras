@@ -92,7 +92,7 @@ epochs = 10,batch_size=10000,validation_data = list(test_uk,y_uk), callbacks = l
 )
 
   score=parallel_model %>% predict(test_uk,batch_size=128)
- #score2 =parallel_model %>% predict(x_train,batch_size=128)
+  score2 =parallel_model %>% predict(x_train,batch_size=128)
   list.files(checkpoint_dir)
 
 create_model <- function() {
@@ -144,4 +144,4 @@ fresh_model %>% load_model_weights_hdf5(
 score1 = fresh_model %>% predict(test_uk,batch_size=128)
 
 fwrite(data.frame(score1,score,y_uk),'score.csv')
-fwrite(data.frame(score,y_uk),'score2.csv')
+fwrite(data.frame(score2,y_train),'score2.csv')
