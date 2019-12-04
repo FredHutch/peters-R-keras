@@ -23,43 +23,22 @@ test_uk=data.frame(test_uk)
 
 parallel_model <- keras_model_sequential()
 fscore=matrix(0,length(y_uk),1)
-parallel_model %>%
- layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu', input_shape = c(ncol(x_train))) %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
-layer_dropout(rate = 0.001) %>%
- layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
-layer_dropout(rate = 0.001) %>%
- layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 1, activation = 'sigmoid') 
-
 
 ###CNN
 x_train <- as.matrix(x_train)
 #dim(x_train) <- c(dim(x_train),1)
 test_uk <- as.matrix(test_uk)
 #dim(test_uk) <- c(dim(test_uk),1)
-#model %>% 
-# layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
-#                input_shape = c(16485,1)) %>% 
-#  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
-#  layer_max_pooling_1d(pool_size = 3) %>% 
- # layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
-#  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
-#  layer_global_average_pooling_1d() %>% 
-#  layer_dropout(rate = 0.5) %>% 
-#  layer_dense(units = 1, activation = 'sigmoid') 
+parallel_model %>% 
+ layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
+                input_shape = c(ncol(x_train),1)) %>% 
+  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
+  layer_max_pooling_1d(pool_size = 3) %>% 
+ layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
+  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
+  layer_global_average_pooling_1d() %>% 
+  layer_dropout(rate = 0.5) %>% 
+  layer_dense(units = 1, activation = 'sigmoid') 
 
 #parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 
@@ -95,53 +74,6 @@ epochs = 10,batch_size=10000,validation_data = list(test_uk,y_uk), callbacks = l
   score2 =parallel_model %>% predict(x_train,batch_size=128)
   list.files(checkpoint_dir)
 
-create_model <- function() {
-  model1 <- keras_model_sequential() %>%
-    layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu', input_shape = c(ncol(x_train))) %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
-layer_dropout(rate = 0.001) %>%
- layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
-   layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
-   layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
-   layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
-  layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 1, activation = 'sigmoid')
-  model1 %>% compile(
-    loss = 'binary_crossentropy',
- #optimizer = optimizer_rmsprop(lr=0.001),
- optimizer = optimizer_adam(lr=0.001),
- metrics = c('accuracy')
- #metrics = c(metric_auc)
-)
-  model1
-  }
 
-#save_model_weights_hdf5(parallel_model,filepath)
-#fresh_model <- load_model_weights_hdf5(filepath, by_name = TRUE)
-
-
-
-
- 
- 
-
-fresh_model <-  create_model()
- 
-fresh_model %>% load_model_weights_hdf5(
-  file.path(checkpoint_dir, list.files(checkpoint_dir)[length(list.files(checkpoint_dir))])
-)
-
-score1 = fresh_model %>% predict(test_uk,batch_size=128)
-
-fwrite(data.frame(score1,score,y_uk),'score.csv')
+fwrite(data.frame(score,y_uk),'score.csv')
 fwrite(data.frame(score2,y_train),'score2.csv')
