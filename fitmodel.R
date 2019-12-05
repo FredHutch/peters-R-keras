@@ -67,7 +67,7 @@ checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc"
  
 history.reg <- parallel_model %>% fit(
 x_train, y_train,
-epochs = 10,batch_size=10000,validation_data = list(test_uk,y_uk), callbacks = list(checkpoint)
+epochs = 10,batch_size=1000,validation_data = list(test_uk,y_uk), callbacks = list(checkpoint)
 )
 
   score=parallel_model %>% predict(test_uk,batch_size=128)
