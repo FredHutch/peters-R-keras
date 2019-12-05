@@ -26,12 +26,12 @@ fscore=matrix(0,length(y_uk),1)
 
 ###CNN
 x_train <- as.matrix(x_train)
-#dim(x_train) <- c(dim(x_train),1)
+dim(x_train) <- c(dim(x_train),1)
 test_uk <- as.matrix(test_uk)
-#dim(test_uk) <- c(dim(test_uk),1)
+dim(test_uk) <- c(dim(test_uk),1)
 parallel_model %>% 
  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
-                input_shape = c(nrow(x_train),ncol(x_train))) %>% 
+                input_shape = c(ncol(x_train),1)) %>% 
   layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
   layer_max_pooling_1d(pool_size = 3) %>% 
  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
