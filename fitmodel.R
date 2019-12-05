@@ -50,30 +50,16 @@ parallel_model  %>% compile(
  #metrics = c(metric_auc)
 )
 
-#score1=c()
 
 
-checkpoint_dir <- "checkpoints"
-dir.create(checkpoint_dir, showWarnings = FALSE)
-filepath <- file.path(checkpoint_dir, "weights.{epoch:02d}-{val_loss:.2f}.hdf5")
-
-
-checkpoint <- callback_model_checkpoint(filepath = filepath, monitor = "val_acc", verbose = 1,
-                                       save_best_only = TRUE,
-                                       save_weights_only = TRUE, mode = "auto")
-#reduce_lr <- callback_reduce_lr_on_plateau(monitor = "val_acc", factor = 0.9,
-#                                          patience = 20, verbose = 1, mode = "auto",
-#                                          min_lr = 0.0001)
- 
-history.reg <- parallel_model %>% fit(
+ parallel_model %>% fit(
 x_train, y_train,
-epochs = 10,batch_size=1000,validation_data = list(test_uk,y_uk), callbacks = list(checkpoint)
+epochs = 10,batch_size=10000,
 )
 
   score=parallel_model %>% predict(test_uk,batch_size=128)
-  score2 =parallel_model %>% predict(x_train,batch_size=128)
-  list.files(checkpoint_dir)
+ 
 
 
 fwrite(data.frame(score,y_uk),'score.csv')
-fwrite(data.frame(score2,y_train),'score2.csv')
+
