@@ -9,7 +9,8 @@ y_train[y_train=='Control']=0
 
 x_train$outcome=NULL
 x_train=data.frame(x_train)
-
+x_train=x_train[1:100,]
+y_train=y_train[1:100]
 
 get.gpu.count <- function() {
   out <- system2("nvidia-smi", "-L", stdout=TRUE)
