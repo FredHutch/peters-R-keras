@@ -33,10 +33,10 @@ dim(test_uk) <- c(dim(test_uk),1)
 parallel_model %>% 
  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
                 input_shape = c(ncol(x_train),1)) %>% 
-  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu') %>% 
+  layer_conv_1d(filters = 32, kernel_size = 3, activation = 'relu') %>% 
   layer_max_pooling_1d(pool_size = 3) %>% 
- layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
-  layer_conv_1d(filters = 128, kernel_size = 3, activation = 'relu') %>% 
+ layer_conv_1d(filters = 32, kernel_size = 3, activation = 'relu') %>% 
+  layer_conv_1d(filters = 32, kernel_size = 3, activation = 'relu') %>% 
   layer_global_average_pooling_1d() %>% 
   layer_dropout(rate = 0.5) %>% 
   layer_dense(units = 1, activation = 'sigmoid') 
