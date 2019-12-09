@@ -31,15 +31,26 @@ dim(x_train) <- c(dim(x_train),1)
 test_uk <- as.matrix(test_uk)
 dim(test_uk) <- c(dim(test_uk),1)
 parallel_model %>% 
- layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',
+ layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
                 input_shape = c(ncol(x_train),1)) %>% 
-  layer_conv_1d(filters = 32, kernel_size = 3, activation = 'relu') %>% 
-  layer_max_pooling_1d(pool_size = 3) %>% 
- layer_conv_1d(filters = 32, kernel_size = 3, activation = 'relu') %>% 
-  layer_conv_1d(filters = 32, kernel_size = 3, activation = 'relu') %>% 
-  layer_global_average_pooling_1d() %>% 
-  layer_dropout(rate = 0.5) %>% 
-  layer_dense(units = 1, activation = 'sigmoid') 
+layer_dropout(rate = 0.001) %>% 
+layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_dropout(rate = 0.001) %>% 
+layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_dropout(rate = 0.001) %>% 
+layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_dropout(rate = 0.001) %>% 
+layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_dropout(rate = 0.001) %>% 
+layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_dropout(rate = 0.001) %>% 
+layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_dropout(rate = 0.001) %>% 
+layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_dropout(rate = 0.001) %>% 
+layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_dropout(rate = 0.001) %>% 
+layer_dense(units = 1, activation = 'sigmoid') 
 
 #parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 
@@ -51,16 +62,12 @@ parallel_model  %>% compile(
  #metrics = c(metric_auc)
 )
 
-
-
- parallel_model %>% fit(
+parallel_model %>% fit(
 x_train, y_train,
 epochs = 10,batch_size=128,
 )
 
-  score=parallel_model %>% predict(test_uk,batch_size=128)
- 
-
+score=parallel_model %>% predict(test_uk,batch_size=128)
 
 fwrite(data.frame(score,y_uk),'score.csv')
 
