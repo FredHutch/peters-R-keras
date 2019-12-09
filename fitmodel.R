@@ -32,7 +32,7 @@ test_uk <- as.matrix(test_uk)
 dim(test_uk) <- c(dim(test_uk),1)
 parallel_model %>% 
  layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
-                input_shape = x_train[0].shape) %>% 
+                input_shape = c(ncol(x_train))) %>% 
 layer_dropout(rate = 0.001) %>% 
 layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
 layer_dropout(rate = 0.001) %>% 
