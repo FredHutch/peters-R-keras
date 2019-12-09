@@ -55,7 +55,7 @@ parallel_model  %>% compile(
 
  parallel_model %>% fit(
 x_train, y_train,
-epochs = 10,batch_size=1000,
+epochs = 10,batch_size=128,
 )
 
   score=parallel_model %>% predict(test_uk,batch_size=128)
