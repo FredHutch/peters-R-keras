@@ -31,24 +31,24 @@ dim(x_train) <- c(dim(x_train),1)
 test_uk <- as.matrix(test_uk)
 dim(test_uk) <- c(dim(test_uk),1)
 parallel_model %>% 
- layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
-                input_shape = c(ncol(x_train))) %>% 
+ layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
+                input_shape = c(ncol(x_train),1)) %>% 
 layer_dropout(rate = 0.001) %>% 
-layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
 layer_dropout(rate = 0.001) %>% 
-layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
 layer_dropout(rate = 0.001) %>% 
-layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
 layer_dropout(rate = 0.001) %>% 
-layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
 layer_dropout(rate = 0.001) %>% 
-layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
 layer_dropout(rate = 0.001) %>% 
-layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
 layer_dropout(rate = 0.001) %>% 
-layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
 layer_dropout(rate = 0.001) %>% 
-layer_conv_1d(filters = 64, kernel_size = 3, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
+layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001)) %>% 
 layer_dropout(rate = 0.001) %>% 
 layer_dense(units = 1, activation = 'sigmoid') 
 
