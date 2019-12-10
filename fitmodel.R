@@ -22,7 +22,7 @@ y_uk=test_uk$outcome
 test_uk$outcome=NULL
 test_uk=data.frame(test_uk)
 
-parallel_model <- keras_model_sequential()
+model <- keras_model_sequential()
 fscore=matrix(0,length(y_uk),1)
 
 ###CNN
@@ -30,7 +30,7 @@ x_train <- as.matrix(x_train)
 dim(x_train) <- c(dim(x_train),1)
 test_uk <- as.matrix(test_uk)
 dim(test_uk) <- c(dim(test_uk),1)
-parallel_model %>% 
+model %>% 
  layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
                 input_shape = c(ncol(x_train),1)) %>% 
 layer_max_pooling_1d(pool_size = 2) %>%
@@ -55,7 +55,7 @@ layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation 
 layer_dropout(rate = 0.001) %>%
 layer_dense(units = 1, activation = 'sigmoid') 
 
-#parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
+parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 
 parallel_model  %>% compile(
  loss = 'binary_crossentropy',
