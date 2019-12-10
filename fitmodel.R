@@ -35,16 +35,14 @@ model %>%
                 input_shape = c(ncol(x_train),1)) %>% 
 layer_max_pooling_1d(pool_size = 2) %>%
 layer_flatten()%>% 
-#layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu', input_shape = c(ncol(x_train))) %>%
+#layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
 #layer_dropout(rate = 0.001) %>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
-layer_dropout(rate = 0.001) %>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
-layer_dropout(rate = 0.001) %>% 
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
-layer_dropout(rate = 0.001) %>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
-layer_dropout(rate = 0.001) %>%
+#layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+#layer_dropout(rate = 0.001) %>% 
+#layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+#layer_dropout(rate = 0.001) %>%
+#layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+#layer_dropout(rate = 0.001) %>%
 layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
 layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
