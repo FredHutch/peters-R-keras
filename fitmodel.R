@@ -49,9 +49,9 @@ layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation 
 layer_dropout(rate = 0.001) %>%
 layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
 layer_dense(units = 1, activation = 'sigmoid') 
 
@@ -67,7 +67,7 @@ parallel_model  %>% compile(
 
 parallel_model %>% fit(
 x_train, y_train,
-epochs = 10,batch_size=10000,
+epochs = 10,batch_size=5000,
 )
 
 score=parallel_model %>% predict(test_uk,batch_size=128)
