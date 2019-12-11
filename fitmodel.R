@@ -124,7 +124,7 @@ layer_dense(units = 1, activation = 'sigmoid')
 # )
 # score=parallel_model %>% predict(test_uk,batch_size=128)
 ######### Model 1
-parallel_model <- multi_gpu_model(model1, gpus=get.gpu.count())
+parallel_model <- multi_gpu_model(model2, gpus=get.gpu.count())
 parallel_model  %>% compile(
   loss = 'binary_crossentropy',
   #optimizer = optimizer_rmsprop(lr=0.001),
