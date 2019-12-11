@@ -23,6 +23,11 @@ test_uk$outcome=NULL
 test_uk=data.frame(test_uk)
 
 model <- keras_model_sequential()
+model1 <- keras_model_sequential()
+model2 <- keras_model_sequential()
+model3 <- keras_model_sequential()
+model4 <- keras_model_sequential()
+
 fscore=matrix(0,length(y_uk),1)
 
 ###CNN
