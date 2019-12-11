@@ -57,8 +57,55 @@ layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation 
 layer_dropout(rate = 0.001) %>%
 layer_dense(units = 1, activation = 'sigmoid') 
 
-parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
+#### Model 1
+model1 %>% 
+ layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
+                input_shape = c(ncol(x_train),1)) %>% 
+layer_max_pooling_1d(pool_size = 2) %>%
+layer_flatten()%>% 
+layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dropout(rate = 0.001) %>%
+layer_dense(units = 1, activation = 'sigmoid') 
 
+#### Model 2
+model2 %>% 
+ layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
+                input_shape = c(ncol(x_train),1)) %>% 
+layer_max_pooling_1d(pool_size = 2) %>%
+layer_flatten()%>% 
+layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dropout(rate = 0.001) %>%
+layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dropout(rate = 0.001) %>%
+layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dropout(rate = 0.001) %>%
+layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dropout(rate = 0.001) %>%
+layer_dense(units = 1, activation = 'sigmoid') 
+##### Model 3
+model3 %>% 
+ layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
+                input_shape = c(ncol(x_train),1)) %>% 
+layer_max_pooling_1d(pool_size = 2) %>%
+layer_flatten()%>% 
+layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dropout(rate = 0.001) %>%
+layer_dense(units = 1, activation = 'sigmoid') 
+##### Model 4
+model4 %>% 
+ layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
+                input_shape = c(ncol(x_train),1)) %>% 
+layer_max_pooling_1d(pool_size = 2) %>%
+layer_flatten()%>% 
+layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dropout(rate = 0.001) %>%
+layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dropout(rate = 0.001) %>%
+layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dropout(rate = 0.001) %>% 
+layer_dense(units = 1, activation = 'sigmoid') 
+####Model
+parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 parallel_model  %>% compile(
  loss = 'binary_crossentropy',
  #optimizer = optimizer_rmsprop(lr=0.001),
@@ -66,13 +113,68 @@ parallel_model  %>% compile(
  metrics = c('accuracy')
  #metrics = c(metric_auc)
 )
-
 parallel_model %>% fit(
 x_train, y_train,
 epochs = 10,batch_size=5000,
 )
-
 score=parallel_model %>% predict(test_uk,batch_size=128)
+######### Model 1
+parallel_model <- multi_gpu_model(model1, gpus=get.gpu.count())
+parallel_model  %>% compile(
+ loss = 'binary_crossentropy',
+ #optimizer = optimizer_rmsprop(lr=0.001),
+ optimizer = optimizer_adam(lr=0.001),
+ metrics = c('accuracy')
+ #metrics = c(metric_auc)
+)
+parallel_model %>% fit(
+x_train, y_train,
+epochs = 10,batch_size=5000,
+)
+score1=parallel_model %>% predict(test_uk,batch_size=128)
+######### Model 2
+parallel_model <- multi_gpu_model(model2, gpus=get.gpu.count())
+parallel_model  %>% compile(
+ loss = 'binary_crossentropy',
+ #optimizer = optimizer_rmsprop(lr=0.001),
+ optimizer = optimizer_adam(lr=0.001),
+ metrics = c('accuracy')
+ #metrics = c(metric_auc)
+)
+parallel_model %>% fit(
+x_train, y_train,
+epochs = 10,batch_size=5000,
+)
+score2=parallel_model %>% predict(test_uk,batch_size=128)
+######
+######### Model 3
+parallel_model <- multi_gpu_model(model3, gpus=get.gpu.count())
+parallel_model  %>% compile(
+ loss = 'binary_crossentropy',
+ #optimizer = optimizer_rmsprop(lr=0.001),
+ optimizer = optimizer_adam(lr=0.001),
+ metrics = c('accuracy')
+ #metrics = c(metric_auc)
+)
+parallel_model %>% fit(
+x_train, y_train,
+epochs = 10,batch_size=5000,
+)
+score3=parallel_model %>% predict(test_uk,batch_size=128)
+######### Model 4
+parallel_model <- multi_gpu_model(model4, gpus=get.gpu.count())
+parallel_model  %>% compile(
+ loss = 'binary_crossentropy',
+ #optimizer = optimizer_rmsprop(lr=0.001),
+ optimizer = optimizer_adam(lr=0.001),
+ metrics = c('accuracy')
+ #metrics = c(metric_auc)
+)
+parallel_model %>% fit(
+x_train, y_train,
+epochs = 10,batch_size=5000,
+)
+score4=parallel_model %>% predict(test_uk,batch_size=128)
 
-fwrite(data.frame(score,y_uk),'score.csv')
+fwrite(data.frame(score,score1,score2,score3,score4,y_uk),'score.csv')
 
