@@ -126,7 +126,6 @@ loss = 'binary_crossentropy',
 optimizer = optimizer_rmsprop(lr=0.001),
 optimizer = optimizer_adam(lr=0.001),
 metrics = c('accuracy')
-metrics = c(metric_auc)
 )
 parallel_model %>% fit(
   x_train, y_train,
