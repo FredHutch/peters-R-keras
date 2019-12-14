@@ -60,6 +60,8 @@ layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation 
 layer_dropout(rate = 0.001) %>%
 layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
+layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dropout(rate = 0.001) %>%
 layer_dense(units = 1, activation = 'sigmoid')
 
 #### Model 1 AUC 0.5
