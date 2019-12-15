@@ -114,7 +114,7 @@ metrics = c('accuracy')
 )
 parallel_model %>% fit(
   x_train, y_train,
-  epochs = 10,batch_size=10000,
+  epochs = 10,batch_size=7000,
 )
 score=parallel_model %>% predict(test_uk,batch_size=128)
 ######### Model 1
