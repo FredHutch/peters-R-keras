@@ -30,7 +30,7 @@ model <- keras_model_sequential()
 
 fscore=matrix(0,length(y_uk),1)
 
-###CNN
+###CNN 6 and 2 highest
 x_train <- as.matrix(x_train)
 dim(x_train) <- c(dim(x_train),1)
 test_uk <- as.matrix(test_uk)
