@@ -38,7 +38,7 @@ dim(test_uk) <- c(dim(test_uk),1)
 model %>%
 #layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
 #               input_shape = c(ncol(x_train),1)) %>%
-layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l1_l2(0.0001,0.0001),
+layer_conv_1d(filters = 128, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l1_l2(0.0001,0.0001),
                input_shape = c(ncol(x_train),1)) %>%
 #layer_max_pooling_1d(pool_size = 2) %>%
 layer_flatten()%>%
