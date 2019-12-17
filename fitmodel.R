@@ -36,25 +36,25 @@ dim(x_train) <- c(dim(x_train),1)
 test_uk <- as.matrix(test_uk)
 dim(test_uk) <- c(dim(test_uk),1)
 model %>%
-layer_conv_2d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
+layer_conv_2d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l1(0.0001),
                input_shape = c(ncol(x_train),1)) %>%
 #layer_max_pooling_1d(pool_size = 2) %>%
 layer_flatten()%>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dense(units = 64, kernel_regularizer = regularizer_l1(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dense(units = 64, kernel_regularizer = regularizer_l1(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dense(units = 64, kernel_regularizer = regularizer_l1(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dense(units = 64, kernel_regularizer = regularizer_l1(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dense(units = 64, kernel_regularizer = regularizer_l1(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
-layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dense(units = 64, kernel_regularizer = regularizer_l1(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
-layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dense(units = 32, kernel_regularizer = regularizer_l1(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
-layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+layer_dense(units = 32, kernel_regularizer = regularizer_l1(0.0001), activation = 'relu') %>%
 layer_dropout(rate = 0.001) %>%
 layer_dense(units = 1, activation = 'sigmoid')
 
