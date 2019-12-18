@@ -72,20 +72,20 @@ dim(test_uk) <- c(dim(test_uk),1)
  # layer_dense(units = 1, activation = 'sigmoid') 
 
 #### Model 2 AUC 0.626
- model %>%
- layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
- input_shape = c(ncol(x_train),1)) %>%
+# model %>%
+ #layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
+ #input_shape = c(ncol(x_train),1)) %>%
  #layer_max_pooling_1d(pool_size = 2) %>%
- layer_flatten()%>%
- layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
- layer_dropout(rate = 0.001) %>%
- layer_dense(units = 1, activation = 'sigmoid')
+ #layer_flatten()%>%
+ #layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+ #layer_dropout(rate = 0.001) %>%
+ #layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+ #layer_dropout(rate = 0.001) %>%
+ #layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+ #layer_dropout(rate = 0.001) %>%
+ #layer_dense(units = 32, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+ #layer_dropout(rate = 0.001) %>%
+ #layer_dense(units = 1, activation = 'sigmoid')
 ##### Model 3
 #model3 %>% 
 #layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
@@ -96,18 +96,18 @@ dim(test_uk) <- c(dim(test_uk),1)
 #layer_dropout(rate = 0.001) %>%
 #layer_dense(units = 1, activation = 'sigmoid') 
 ##### Model 4
-# model4 %>%
-# layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
-#                input_shape = c(ncol(x_train),1)) %>%
+model %>%
+ layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
+                input_shape = c(ncol(x_train),1)) %>%
 # layer_max_pooling_1d(pool_size = 2) %>%
-# layer_flatten()%>%
-# layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
-# layer_dropout(rate = 0.001) %>%
-# layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
-# layer_dropout(rate = 0.001) %>%
-# layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
-# layer_dropout(rate = 0.001) %>%
-# layer_dense(units = 1, activation = 'sigmoid')
+ layer_flatten()%>%
+ layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+ layer_dropout(rate = 0.001) %>%
+ layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+ layer_dropout(rate = 0.001) %>%
+ layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
+ layer_dropout(rate = 0.001) %>%
+ layer_dense(units = 1, activation = 'sigmoid')
 ####Model
 parallel_model <- multi_gpu_model(model, gpus=get.gpu.count())
 parallel_model  %>% compile(
