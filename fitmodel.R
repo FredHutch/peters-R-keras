@@ -22,6 +22,8 @@ test_uk=fread('eur_crc_test.txt')
 y_uk=test_uk$outcome
 test_uk$outcome=NULL
 test_uk=data.frame(test_uk)
+idx=match(colnames(x_train),colnames(test_uk))
+test_uk=test_uk[,idx]
 
 model <- keras_model_sequential()
 #model1 <- keras_model_sequential()
