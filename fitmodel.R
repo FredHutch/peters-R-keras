@@ -1,8 +1,8 @@
 library(keras)
 library(data.table)
 
-#x_train=fread('train_full.txt')
-x_train=fread('x_train_1K.txt')
+x_train=fread('train_full.txt')
+#x_train=fread('x_train_1K.txt')
 y_train=x_train$outcome
 
 y_train[y_train=='Case']=1
