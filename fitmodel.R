@@ -33,11 +33,6 @@ test_uk=data.frame(test_uk)
 idx=match(colnames(x_train),colnames(test_uk))
 test_uk=test_uk[,idx]
 
-test_uk_hap=fread('rpgeh_hap_22.txt')
-y_uk_hap=y_uk
-test_uk_hap=data.frame(test_uk_hap)
-idx=match(colnames(x_train_hap),colnames(test_uk_hap))
-test_uk_hap=test_uk_hap[,idx]
 
 
 
@@ -147,6 +142,12 @@ x_train_hap <- as.matrix(x_train_hap)
 dim(x_train_hap) <- c(dim(x_train_hap),1)
 test_uk_hap <- as.matrix(test_uk_hap)
 dim(test_uk_hap) <- c(dim(test_uk_hap),1)
+
+test_uk_hap=fread('rpgeh_hap_22.txt')
+y_uk_hap=y_uk
+test_uk_hap=data.frame(test_uk_hap)
+idx=match(colnames(x_train_hap),colnames(test_uk_hap))
+test_uk_hap=test_uk_hap[,idx]
 
 model1 %>%
  layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
