@@ -56,10 +56,6 @@ dim(x_train) <- c(dim(x_train),1)
 test_uk <- as.matrix(test_uk)
 dim(test_uk) <- c(dim(test_uk),1)
 
-x_train_hap <- as.matrix(x_train_hap)
-dim(x_train_hap) <- c(dim(x_train_hap),1)
-test_uk_hap <- as.matrix(test_uk_hap)
-dim(test_uk_hap) <- c(dim(test_uk_hap),1)
 
 #model %>%
 #layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
@@ -143,6 +139,14 @@ parallel_model %>% fit(
   epochs = 10,batch_size=7000,
 )
 score=parallel_model %>% predict(test_uk,batch_size=128)
+
+x_train=0
+test_uk=0
+
+x_train_hap <- as.matrix(x_train_hap)
+dim(x_train_hap) <- c(dim(x_train_hap),1)
+test_uk_hap <- as.matrix(test_uk_hap)
+dim(test_uk_hap) <- c(dim(test_uk_hap),1)
 
 model1 %>%
  layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
