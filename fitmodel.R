@@ -18,8 +18,8 @@ x_train_hap$outcome=NULL
 x_train_hap=data.frame(x_train_hap)
 
 
-#x_train=x_train[1:68164,]
-#y_train=y_train[1:68164]
+x_train_hap=x_train_hap[1:78164,]
+y_train_hap=y_train_hap[1:78164]
 
 get.gpu.count <- function() {
   out <- system2("nvidia-smi", "-L", stdout=TRUE)
