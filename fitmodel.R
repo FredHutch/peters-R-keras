@@ -167,9 +167,9 @@ optimizer = optimizer_adam(lr=0.001),
 metrics = c('accuracy')
 )
 parallel_model %>% fit(
- x_train, y_train,
+ x_train, y_train_hap,
 epochs = 10,batch_size=7000,
 )
 score1=parallel_model %>% predict(test_uk,batch_size=128)
 
-fwrite(data.frame(score1,y_uk),'score.csv')
+fwrite(data.frame(score1,y_uk_hap),'score.csv')
