@@ -135,13 +135,6 @@ parallel_model %>% fit(
 )
 score=parallel_model %>% predict(test_uk,batch_size=128)
 
-x_train=0
-test_uk=0
-
-x_train_hap <- as.matrix(x_train_hap)
-dim(x_train_hap) <- c(dim(x_train_hap),1)
-test_uk_hap <- as.matrix(test_uk_hap)
-dim(test_uk_hap) <- c(dim(test_uk_hap),1)
 
 test_uk_hap=fread('rpgeh_hap_22.txt')
 y_uk_hap=y_uk
@@ -149,9 +142,14 @@ test_uk_hap=data.frame(test_uk_hap)
 idx=match(colnames(x_train_hap),colnames(test_uk_hap))
 test_uk_hap=test_uk_hap[,idx]
 
+x_train <- as.matrix(x_train_hap)
+dim(x_train) <- c(dim(x_train),1)
+test_uk <- as.matrix(test_uk_hap)
+dim(test_uk) <- c(dim(test_uk),1)
+
 model1 %>%
  layer_conv_1d(filters = 64, kernel_size = 1, activation = 'relu',kernel_regularizer = regularizer_l2(0.0001),
-                input_shape = c(ncol(x_train_hap),1)) %>%
+                input_shape = c(ncol(x_train),1)) %>%
 # layer_max_pooling_1d(pool_size = 2) %>%
  layer_flatten()%>%
  layer_dense(units = 64, kernel_regularizer = regularizer_l2(0.0001), activation = 'relu') %>%
@@ -169,13 +167,10 @@ optimizer = optimizer_adam(lr=0.001),
 metrics = c('accuracy')
 )
 parallel_model %>% fit(
-  x_train_hap, y_train_hap,
+  x_train, y_train,
   epochs = 10,batch_size=7000,
 )
-score1=parallel_model %>% predict(test_uk_hap,batch_size=128)
-
-
-
+score1=parallel_model %>% predict(test_uk,batch_size=128)
 
 fwrite(data.frame(score,score1,y_uk),'score.csv')
 
