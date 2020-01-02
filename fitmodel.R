@@ -26,8 +26,8 @@ get.gpu.count <- function() {
   length(out)
 }
 
-# test_uk=fread('eur_crc_test.txt')
-# y_uk=test_uk$outcome
+ test_uk=fread('eur_crc_test.txt')
+ y_uk=test_uk$outcome
 # test_uk$outcome=NULL
 # test_uk=data.frame(test_uk)
 # idx=match(colnames(x_train),colnames(test_uk))
