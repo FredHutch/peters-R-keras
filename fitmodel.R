@@ -11,11 +11,8 @@ y=as.factor(y)
 
 penalty2=c(rep(1,17327),rep(1,4))
 
-library(doParallel)
-require(glmnet)
-require(methods)
-cl <- makeCluster(5)
-registerDoParallel(cl)
+library(glmnet)
+
 
 cv.lasso3 <- cv.glmnet(x_train, (y), family='binomial', alpha=0, parallel=TRUE, standardize=FALSE, penalty.factor=penalty2,type.measure='auc')
 coeff=coef(cv.lasso3)
