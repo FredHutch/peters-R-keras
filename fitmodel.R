@@ -4,6 +4,9 @@
  x_train=fread('hap_new.txt')
  y=x_train$outcome
  x_train$outcome=NULL
+ x_train$V1=NULL
+x_train$sex=NULL
+x_train$platform=NULL
 
 x_train=data.frame(x_train)
 x_train=data.matrix(x_train)
